@@ -1,0 +1,74 @@
+import logging
+from typing import List, Tuple
+
+from langchain_chroma import Chroma
+from langchain_core.documents import Document
+
+from src.legal_rag.config.settings import (
+    CHROMA_COLLECTION_NAME,
+    CHROMA_DB_PATH,
+    TOP_K_RESULTS,
+)
+
+from src.legal_rag.retrieval.embedder import get_embeddings
+
+logger = logging.getLogger(__name__)
+
+def get_vector_store() -> Chroma:
+    embeddings = get_embeddings()
+
+    vector_store = Chroma(
+        collection_name=CHROMA_COLLECTION_NAME,
+        embedding_function=embeddings,
+        persist_directory=CHROMA_DB_PATH,
+    )
+
+    return vector_store
+
+def add_documents(chunks: List[Document]) -> int:
+    if not chunks:
+        logger.warning("add_documents called with empty list. Nothing stored.")
+        return 0
+    
+    logger.info(f"Embedding and storing {len(chunks)} chunks...")
+    vector_store = get_vector_store()
+    vector_store.add_documents(chunks)
+    logger.info(f"Successfully stores {len(chunks)} chunks in ChromaDB.")
+    return len(chunks)
+
+def similarity_search(
+        query: str,
+        k: int = TOP_K_RESULTS,
+) -> List[Document]:
+    vector_store = get_vector_store()
+    results = vector_store.similarity_search(query, k=k)
+    logger.info(
+        f"Retrieved {len(results)} chunks for query: "
+        f"{query[:60]}{'...' if len(query) > 60 else ''}'"
+    )
+    return results
+
+def similarity_search_with_scores(
+        query: str,
+        k: int = TOP_K_RESULTS,
+) -> List[Tuple[Document, float]]:
+    vector_store = get_vector_store()
+    results = vector_store.similarity_search_with_score(query, k=k)
+    return results
+
+def get_collection_stats() -> dict:
+    vector_store = get_vector_store()
+    count = vector_store._collection.count()
+    return {
+        "collection_name": CHROMA_COLLECTION_NAME,
+        "total_chunks": count,
+        "db_path": CHROMA_DB_PATH,
+    }
+
+def reset_collection() -> None:
+    vector_store = get_vector_store()
+    vector_store.delete_collection()
+    logger.warning(
+        "Vector store collection deleted. "
+        "All stored chunks have been removed."
+    )

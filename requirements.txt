@@ -1,0 +1,22 @@
+# Core orchestration
+langchain==0.3.25
+langchain-community==0.3.23
+langchain-groq==0.3.2
+langchain-huggingface==0.1.2
+
+# Vector store
+chromadb==0.6.3
+
+# Embeddings
+sentence-transformers==3.4.1
+
+# Document loading
+pypdf==5.4.0
+requests==2.32.3
+
+# Utilities
+python-dotenv==1.1.0
+tiktoken==0.9.0
+pyyaml==6.0.2
+beautifulsoup4==4.13.4
+langchain-chroma==0.2.4

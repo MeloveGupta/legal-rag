@@ -1,0 +1,11 @@
+# Testing
+pytest==8.3.5
+pytest-cov==6.1.0
+
+# Code quality
+black==25.1.0
+isort==6.0.1
+
+# Notebooks (for experiments)
+jupyter==1.1.1
+ipykernel==6.29.5
