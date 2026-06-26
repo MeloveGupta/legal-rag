@@ -30,3 +30,7 @@ htmlcov/
 
 # OS
 .DS_Store
+
+# Evaluation reports (generated, not committed)
+evals/reports/
+evals/reports/checkpoint.json

@@ -1,0 +1,411 @@
+{
+  "dataset_version": "1.0",
+  "source_document": "constitution_of_india.pdf",
+  "description": "Golden evaluation dataset for Indian Constitutional Law RAG system. Category A answers are verified against the Constitution of India. Category B questions are intentionally out of scope.",
+  "categories": {
+    "A": "Answerable from Constitution of India — system must answer",
+    "B": "Out of scope — system must refuse"
+  },
+  "qa_pairs": [
+    {
+      "id": "A001",
+      "category": "A",
+      "question": "What does Article 21 say about the right to life and personal liberty?",
+      "expected_answer": "Article 21 states that no person shall be deprived of his life or personal liberty except according to procedure established by law.",
+      "source_hint": "Article 21, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A002",
+      "category": "A",
+      "question": "What does Article 14 of the Constitution guarantee?",
+      "expected_answer": "Article 14 guarantees that the State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+      "source_hint": "Article 14, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A003",
+      "category": "A",
+      "question": "What does Article 15 of the Constitution prohibit?",
+      "expected_answer": "Article 15 prohibits the State from discriminating against any citizen on grounds only of religion, race, caste, sex, or place of birth. It permits the State to make special provisions for women and children and for socially and educationally backward classes.",
+      "source_hint": "Article 15, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A004",
+      "category": "A",
+      "question": "What does Article 17 of the Constitution deal with?",
+      "expected_answer": "Article 17 abolishes untouchability and forbids its practice in any form. The enforcement of any disability arising out of untouchability shall be an offence punishable in accordance with law.",
+      "source_hint": "Article 17, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A005",
+      "category": "A",
+      "question": "What freedoms does Article 19 of the Constitution guarantee?",
+      "expected_answer": "Article 19 guarantees to all citizens the right to freedom of speech and expression, the right to assemble peaceably and without arms, the right to form associations or unions, the right to move freely throughout the territory of India, the right to reside and settle in any part of India, and the right to practise any profession or carry on any occupation, trade or business.",
+      "source_hint": "Article 19, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A006",
+      "category": "A",
+      "question": "What does Article 21A provide regarding the right to education?",
+      "expected_answer": "Article 21A provides that the State shall provide free and compulsory education to all children of the age of six to fourteen years in such manner as the State may by law determine.",
+      "source_hint": "Article 21A, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A007",
+      "category": "A",
+      "question": "What does Article 23 of the Constitution prohibit?",
+      "expected_answer": "Article 23 prohibits traffic in human beings and begar and other similar forms of forced labour. Any contravention of this provision shall be an offence punishable in accordance with law.",
+      "source_hint": "Article 23, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A008",
+      "category": "A",
+      "question": "What does Article 24 of the Constitution prohibit?",
+      "expected_answer": "Article 24 prohibits the employment of children below the age of fourteen years in any factory or mine or engaged in any other hazardous employment.",
+      "source_hint": "Article 24, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A009",
+      "category": "A",
+      "question": "What does Article 25 of the Constitution guarantee?",
+      "expected_answer": "Article 25 guarantees freedom of conscience and the right to freely profess, practise and propagate religion, subject to public order, morality, health, and other provisions of Part III.",
+      "source_hint": "Article 25, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A010",
+      "category": "A",
+      "question": "What remedy does Article 32 provide for enforcement of fundamental rights?",
+      "expected_answer": "Article 32 guarantees the right to move the Supreme Court by appropriate proceedings for the enforcement of fundamental rights. The Supreme Court has power to issue directions, orders or writs including habeas corpus, mandamus, prohibition, quo warranto and certiorari for the enforcement of these rights.",
+      "source_hint": "Article 32, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A011",
+      "category": "A",
+      "question": "What is the procedure for amendment of the Constitution under Article 368?",
+      "expected_answer": "Under Article 368, an amendment may be initiated by a Bill in either House of Parliament. The Bill must be passed in each House by a majority of the total membership and by not less than two-thirds of members present and voting. The Bill is then presented to the President who gives assent. For amendments to provisions such as Articles 54, 55, 73, 162, 241 or 279A, ratification by Legislatures of not less than one-half of the States is also required.",
+      "source_hint": "Article 368, Part XX",
+      "should_answer": true
+    },
+    {
+      "id": "A012",
+      "category": "A",
+      "question": "What does the Preamble of the Constitution of India declare?",
+      "expected_answer": "The Preamble declares India to be a Sovereign Socialist Secular Democratic Republic. It resolves to secure to all citizens justice (social, economic and political), liberty of thought, expression, belief, faith and worship, equality of status and of opportunity, and to promote fraternity assuring the dignity of the individual and the unity and integrity of the Nation.",
+      "source_hint": "Preamble",
+      "should_answer": true
+    },
+    {
+      "id": "A013",
+      "category": "A",
+      "question": "What are the qualifications required to be elected as President of India?",
+      "expected_answer": "Under Article 58, a person is eligible for election as President if they are a citizen of India, have completed the age of thirty-five years, and are qualified for election as a member of the House of the People. A person holding any office of profit under any Government is not eligible.",
+      "source_hint": "Article 58, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A014",
+      "category": "A",
+      "question": "How is the President of India elected?",
+      "expected_answer": "The President is elected by members of an Electoral College consisting of the elected members of both Houses of Parliament and the elected members of the Legislative Assemblies of the States, through proportional representation by means of the single transferable vote by secret ballot.",
+      "source_hint": "Articles 54-55, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A015",
+      "category": "A",
+      "question": "What is the term of office of the President of India?",
+      "expected_answer": "The President shall hold office for a term of five years from the date on which he enters upon his office. The President is eligible for re-election and may resign by writing under his hand addressed to the Vice-President.",
+      "source_hint": "Article 56, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A016",
+      "category": "A",
+      "question": "What is the procedure for impeachment of the President of India?",
+      "expected_answer": "Under Article 61, the President may be removed for violation of the Constitution. Either House of Parliament may prefer a charge by a resolution passed by not less than two-thirds of its total membership after fourteen days notice. The other House investigates the charge and if it passes a resolution by two-thirds majority declaring the charge sustained, the President stands removed.",
+      "source_hint": "Article 61, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A017",
+      "category": "A",
+      "question": "What does Article 74 provide regarding the Council of Ministers?",
+      "expected_answer": "Article 74 provides that there shall be a Council of Ministers with the Prime Minister at the head to aid and advise the President, who shall act in accordance with such advice. The President may require the Council of Ministers to reconsider such advice and shall act in accordance with the advice tendered after reconsideration.",
+      "source_hint": "Article 74, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A018",
+      "category": "A",
+      "question": "What is the composition of Parliament as provided in Article 79?",
+      "expected_answer": "Article 79 provides that Parliament for the Union shall consist of the President and two Houses — the Council of States (Rajya Sabha) and the House of the People (Lok Sabha).",
+      "source_hint": "Article 79, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A019",
+      "category": "A",
+      "question": "What is the composition of the Rajya Sabha?",
+      "expected_answer": "Under Article 80, the Rajya Sabha shall consist of not more than two hundred and thirty-eight representatives of States and Union territories, and twelve members nominated by the President having special knowledge or practical experience in literature, science, art and social service.",
+      "source_hint": "Article 80, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A020",
+      "category": "A",
+      "question": "What does Article 108 provide regarding joint sittings of Parliament?",
+      "expected_answer": "Article 108 provides for a joint sitting of both Houses in case of a deadlock on a Bill. The President may summon a joint sitting and if the Bill is passed by a majority of the total number of members of both Houses present and voting, it shall be deemed to have been passed by both Houses.",
+      "source_hint": "Article 108, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A021",
+      "category": "A",
+      "question": "What does Article 124 provide regarding the establishment of the Supreme Court?",
+      "expected_answer": "Article 124 provides for the establishment of the Supreme Court of India consisting of a Chief Justice of India and such number of other Judges as Parliament may prescribe. Every Judge shall be appointed by the President after consultation with such Judges of the Supreme Court and High Courts as the President deems necessary.",
+      "source_hint": "Article 124, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A022",
+      "category": "A",
+      "question": "What powers does Article 226 confer on High Courts?",
+      "expected_answer": "Article 226 empowers every High Court to issue to any person or authority, including the Government, directions, orders or writs including habeas corpus, mandamus, prohibition, quo warranto and certiorari for the enforcement of fundamental rights and for any other purpose.",
+      "source_hint": "Article 226, Part VI",
+      "should_answer": true
+    },
+    {
+      "id": "A023",
+      "category": "A",
+      "question": "What does Article 280 provide regarding the Finance Commission?",
+      "expected_answer": "Article 280 provides for the constitution of a Finance Commission by the President within two years from commencement and thereafter every fifth year. The Finance Commission makes recommendations on distribution of net proceeds of taxes between the Union and States and principles governing grants-in-aid to States.",
+      "source_hint": "Article 280, Part XII",
+      "should_answer": true
+    },
+    {
+      "id": "A024",
+      "category": "A",
+      "question": "What does Article 300A provide regarding the right to property?",
+      "expected_answer": "Article 300A provides that no person shall be deprived of his property save by authority of law.",
+      "source_hint": "Article 300A, Part XII",
+      "should_answer": true
+    },
+    {
+      "id": "A025",
+      "category": "A",
+      "question": "What does Article 343 provide regarding the official language of the Union?",
+      "expected_answer": "Article 343 provides that the official language of the Union shall be Hindi in Devanagari script. The form of numerals shall be the international form of Indian numerals. English was also to continue for official purposes for fifteen years from commencement of the Constitution.",
+      "source_hint": "Article 343, Part XVII",
+      "should_answer": true
+    },
+    {
+      "id": "A026",
+      "category": "A",
+      "question": "What does Article 352 deal with regarding National Emergency?",
+      "expected_answer": "Article 352 provides that if the President is satisfied that a grave emergency exists whereby the security of India or any part thereof is threatened by war, external aggression or armed rebellion, he may by Proclamation declare a National Emergency in respect of the whole of India or any part thereof. Such a proclamation must be approved by both Houses of Parliament.",
+      "source_hint": "Article 352, Part XVIII",
+      "should_answer": true
+    },
+    {
+      "id": "A027",
+      "category": "A",
+      "question": "What does Article 356 provide regarding President's Rule in a State?",
+      "expected_answer": "Article 356 provides that if the President is satisfied on receipt of a report from the Governor or otherwise that the government of the State cannot be carried on in accordance with the Constitution, the President may assume to himself all or any of the functions of the Government of the State and powers vested in or exercisable by the Governor.",
+      "source_hint": "Article 356, Part XVIII",
+      "should_answer": true
+    },
+    {
+      "id": "A028",
+      "category": "A",
+      "question": "What does Article 44 provide regarding a Uniform Civil Code?",
+      "expected_answer": "Article 44 provides that the State shall endeavour to secure for the citizens a uniform civil code throughout the territory of India. This is a Directive Principle of State Policy in Part IV of the Constitution.",
+      "source_hint": "Article 44, Part IV",
+      "should_answer": true
+    },
+    {
+      "id": "A029",
+      "category": "A",
+      "question": "What are the Fundamental Duties listed under Article 51A?",
+      "expected_answer": "Article 51A lists duties of every citizen including: abiding by the Constitution and respecting its ideals, cherishing the ideals of the national struggle, upholding sovereignty and integrity of India, defending the country, promoting harmony and common brotherhood, valuing the composite culture, protecting the natural environment, developing scientific temper, safeguarding public property, striving towards excellence, and providing education opportunities to children between six and fourteen years.",
+      "source_hint": "Article 51A, Part IV-A",
+      "should_answer": true
+    },
+    {
+      "id": "A030",
+      "category": "A",
+      "question": "What does Article 53 provide regarding the executive power of the Union?",
+      "expected_answer": "Article 53 provides that the executive power of the Union shall be vested in the President and shall be exercised by him directly or through officers subordinate to him in accordance with the Constitution. The supreme command of the Defence Forces of the Union shall also be vested in the President.",
+      "source_hint": "Article 53, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A031",
+      "category": "A",
+      "question": "What does Article 51 direct regarding promotion of international peace?",
+      "expected_answer": "Article 51 directs the State to endeavour to promote international peace and security, maintain just and honourable relations between nations, foster respect for international law and treaty obligations, and encourage settlement of international disputes by arbitration.",
+      "source_hint": "Article 51, Part IV",
+      "should_answer": true
+    },
+    {
+      "id": "A032",
+      "category": "A",
+      "question": "What does Article 148 provide regarding the Comptroller and Auditor-General of India?",
+      "expected_answer": "Article 148 provides for a Comptroller and Auditor-General of India appointed by the President. He shall not be removed except in the same manner as a Judge of the Supreme Court and shall not be eligible for further office under any Government after ceasing to hold his office.",
+      "source_hint": "Article 148, Part V",
+      "should_answer": true
+    },
+    {
+      "id": "A033",
+      "category": "A",
+      "question": "What does Article 16 guarantee regarding equality of opportunity in public employment?",
+      "expected_answer": "Article 16 guarantees equality of opportunity for all citizens in matters relating to employment or appointment to any office under the State. No citizen shall be discriminated against on grounds only of religion, race, caste, sex, descent, place of birth or residence.",
+      "source_hint": "Article 16, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A034",
+      "category": "A",
+      "question": "What does Part IV of the Constitution deal with?",
+      "expected_answer": "Part IV (Articles 36 to 51) deals with the Directive Principles of State Policy. These are principles fundamental in the governance of the country and it shall be the duty of the State to apply them in making laws. They are not enforceable by any court but are fundamental to governance.",
+      "source_hint": "Articles 36-51, Part IV",
+      "should_answer": true
+    },
+    {
+      "id": "A035",
+      "category": "A",
+      "question": "What does Article 22 protect citizens against regarding arrest and detention?",
+      "expected_answer": "Article 22 provides that no person who is arrested shall be detained without being informed of the grounds for arrest. Every arrested person has the right to consult a legal practitioner of their choice. Every arrested person shall be produced before the nearest Magistrate within twenty-four hours and shall not be detained beyond that period without the authority of a Magistrate.",
+      "source_hint": "Article 22, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A036",
+      "category": "A",
+      "question": "What does Article 13 provide regarding laws inconsistent with fundamental rights?",
+      "expected_answer": "Article 13 provides that all laws in force before commencement of the Constitution that are inconsistent with Part III shall be void to the extent of such inconsistency. The State shall not make any law which takes away or abridges the rights conferred by Part III and any such law shall be void to the extent of the contravention.",
+      "source_hint": "Article 13, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A037",
+      "category": "A",
+      "question": "What does Article 39 of the Constitution direct the State to do?",
+      "expected_answer": "Article 39 directs the State to secure that citizens have adequate means of livelihood, that material resources are distributed to subserve the common good, that the economic system does not result in concentration of wealth, that there is equal pay for equal work for men and women, and that children are not forced by economic necessity into work unsuited to their age.",
+      "source_hint": "Article 39, Part IV",
+      "should_answer": true
+    },
+    {
+      "id": "A038",
+      "category": "A",
+      "question": "What does Article 360 deal with regarding Financial Emergency?",
+      "expected_answer": "Article 360 provides that if the President is satisfied that the financial stability or credit of India or any part thereof is threatened, he may by Proclamation declare a Financial Emergency. During such emergency the President may direct that Money Bills or Financial Bills passed by State Legislatures be reserved for Presidential consideration.",
+      "source_hint": "Article 360, Part XVIII",
+      "should_answer": true
+    },
+    {
+      "id": "A039",
+      "category": "A",
+      "question": "What does Article 12 define as the State for purposes of fundamental rights?",
+      "expected_answer": "Article 12 defines the State as including the Government and Parliament of India, the Government and Legislature of each State, and all local or other authorities within the territory of India or under the control of the Government of India.",
+      "source_hint": "Article 12, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "A040",
+      "category": "A",
+      "question": "What does Article 32(1) guarantee to every person?",
+      "expected_answer": "Article 32(1) guarantees the right to move the Supreme Court by appropriate proceedings for the enforcement of rights conferred by Part III of the Constitution. This right to constitutional remedies is itself a fundamental right.",
+      "source_hint": "Article 32, Part III",
+      "should_answer": true
+    },
+    {
+      "id": "B001",
+      "category": "B",
+      "question": "What is the punishment for murder under Section 302 of the Indian Penal Code?",
+      "expected_answer": "NOT APPLICABLE - out of scope. Corpus contains only the Constitution of India, not the IPC.",
+      "source_hint": "IPC Section 302 - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B002",
+      "category": "B",
+      "question": "What are the GST rates applicable to food items in India?",
+      "expected_answer": "NOT APPLICABLE - out of scope. GST rates are governed by GST Acts and GST Council decisions, not the Constitution.",
+      "source_hint": "GST legislation - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B003",
+      "category": "B",
+      "question": "What is the minimum wage for workers in India?",
+      "expected_answer": "NOT APPLICABLE - out of scope. Minimum wages are governed by the Minimum Wages Act, not the Constitution.",
+      "source_hint": "Minimum Wages Act - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B004",
+      "category": "B",
+      "question": "What are the provisions of the Hindu Marriage Act 1955 regarding divorce?",
+      "expected_answer": "NOT APPLICABLE - out of scope. The Hindu Marriage Act 1955 is not part of the corpus.",
+      "source_hint": "Hindu Marriage Act 1955 - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B005",
+      "category": "B",
+      "question": "What is the penalty for insider trading under SEBI regulations?",
+      "expected_answer": "NOT APPLICABLE - out of scope. SEBI regulations are not part of the corpus.",
+      "source_hint": "SEBI Act/Regulations - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B006",
+      "category": "B",
+      "question": "What are the provisions of the Companies Act 2013 regarding board meetings?",
+      "expected_answer": "NOT APPLICABLE - out of scope. The Companies Act 2013 is not part of the corpus.",
+      "source_hint": "Companies Act 2013 - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B007",
+      "category": "B",
+      "question": "What are the income tax slabs applicable for individuals in India for 2024-25?",
+      "expected_answer": "NOT APPLICABLE - out of scope. Income tax slabs are governed by the Finance Act and Income Tax Act, not the Constitution.",
+      "source_hint": "Income Tax Act - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B008",
+      "category": "B",
+      "question": "What is the procedure for filing an FIR under the Code of Criminal Procedure?",
+      "expected_answer": "NOT APPLICABLE - out of scope. The CrPC / Bharatiya Nagarik Suraksha Sanhita is not part of the corpus.",
+      "source_hint": "CrPC/BNSS - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B009",
+      "category": "B",
+      "question": "What are the time limits for providing information under the Right to Information Act 2005?",
+      "expected_answer": "NOT APPLICABLE - out of scope. The RTI Act 2005 is not part of the corpus.",
+      "source_hint": "RTI Act 2005 - not in corpus",
+      "should_answer": false
+    },
+    {
+      "id": "B010",
+      "category": "B",
+      "question": "What are the eligibility criteria for applying for a passport in India?",
+      "expected_answer": "NOT APPLICABLE - out of scope. Passport eligibility is governed by the Passports Act 1967, not the Constitution.",
+      "source_hint": "Passports Act 1967 - not in corpus",
+      "should_answer": false
+    }
+  ]
+}
