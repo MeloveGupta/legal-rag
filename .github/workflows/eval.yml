@@ -1,0 +1,92 @@
+name: RAG Evaluation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub
+          key: ${{ runner.os }}-hf-BAAI-bge-large-en-v1.5
+          restore-keys: |
+            ${{ runner.os }}-hf-
+
+      - name: Restore ChromaDB from cache
+        uses: actions/cache@v4
+        with:
+          path: chroma_db
+          key: ${{ runner.os }}-chroma-${{ hashFiles('data/raw/**') }}
+          restore-keys: |
+            ${{ runner.os }}-chroma-
+
+      - name: Ingest documents if ChromaDB is empty
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          USER_AGENT: legal-rag-ci/1.0
+        run: |
+          python -c "
+          from src.legal_rag.retrieval.vector_store import get_collection_stats
+          stats = get_collection_stats()
+          if stats['total_chunks'] == 0:
+              print('ChromaDB empty — ingesting documents...')
+              from src.legal_rag.ingestion.loader import load_documents
+              from src.legal_rag.ingestion.chunker import chunk_documents
+              from src.legal_rag.retrieval.vector_store import add_documents
+              import os, pathlib
+              raw_dir = pathlib.Path('data/raw')
+              for pdf in raw_dir.glob('*.pdf'):
+                  docs = load_documents(pdf)
+                  chunks = chunk_documents(docs)
+                  add_documents(chunks)
+                  print(f'Ingested {pdf.name}: {len(chunks)} chunks')
+          else:
+              print(f'ChromaDB has {stats[\"total_chunks\"]} chunks — skipping ingestion.')
+          "
+
+      - name: Run evaluation suite
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          NVIDIA_MODEL_NAME: nvidia/nemotron-3-ultra-550b-a55b
+          NVIDIA_BASE_URL: https://integrate.api.nvidia.com/v1
+          EMBEDDING_MODEL_NAME: BAAI/bge-large-en-v1.5
+          CHROMA_DB_PATH: ./chroma_db
+          TOP_K_RESULTS: "5"
+          CHUNK_SIZE: "700"
+          CHUNK_OVERLAP: "100"
+          USER_AGENT: legal-rag-ci/1.0
+        run: python evals/scripts/evaluate.py
+
+      - name: Upload evaluation report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-report-${{ github.sha }}
+          path: evals/reports/eval_*.json
+          retention-days: 30

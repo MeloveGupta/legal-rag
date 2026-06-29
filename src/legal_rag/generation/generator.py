@@ -114,14 +114,47 @@ def _extract_sources(
         ))
     return sources
 
+def _is_refusal(answer_text: str, refusal_phrase: str) -> bool:
+    text_lower = answer_text.lower().strip()
+
+    # Primary: check exact configured phrase
+    if refusal_phrase.lower() in text_lower:
+        return True
+
+    # Secondary: common refusal patterns (model may paraphrase)
+    refusal_patterns = [
+        "cannot answer based on the provided",
+        "cannot answer this question based on the provided",
+        "not able to answer based on",
+        "information is not available in the provided",
+        "context does not contain",
+        "documents do not contain",
+        "provided sources do not",
+        "not present in the provided",
+        "the context does not support",
+        "no information in the provided",
+        "not found in the provided",
+        "i refuse",
+    ]
+    if any(pattern in text_lower for pattern in refusal_patterns):
+        return True
+
+    # tertiary: a short answer with no citation markers is a refusal
+    # every legitimate answer MUST cite at least one source [N]
+    import re
+    has_citation = bool(re.search(r'\[\d+\]', answer_text))
+    if not has_citation and len(answer_text.strip()) < 120:
+        return True
+
+    return False
 
 def answer_query(
     query: str,
     k: int = TOP_K_RESULTS,
-    prompt_version: str = "v1",
+    prompt_version: str = "v2",
 ) -> RAGResponse:
     """
-    Full RAG pipeline: hybrid search → rerank → Nemotron Ultra → cited answer.
+    Full RAG pipeline: hybrid search -> rerank -> Nemotron Ultra -> cited answer.
     """
     logger.info(f"Query: '{query[:80]}'")
 
@@ -162,7 +195,7 @@ def answer_query(
         "refusal_phrase",
         "I cannot answer this question based on the available documents"
     )
-    answered = refusal_phrase.lower() not in answer_text.lower()
+    answered = not _is_refusal(answer_text, refusal_phrase)
 
     return RAGResponse(
         answer=answer_text,

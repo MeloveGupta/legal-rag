@@ -3,8 +3,8 @@
   "source_document": "constitution_of_india.pdf",
   "description": "Golden evaluation dataset for Indian Constitutional Law RAG system. Category A answers are verified against the Constitution of India. Category B questions are intentionally out of scope.",
   "categories": {
-    "A": "Answerable from Constitution of India — system must answer",
-    "B": "Out of scope — system must refuse"
+    "A": "Answerable from Constitution of India - system must answer",
+    "B": "Out of scope - system must refuse"
   },
   "qa_pairs": [
     {
