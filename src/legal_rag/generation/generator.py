@@ -1,7 +1,7 @@
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import yaml
 from langchain_openai import ChatOpenAI
@@ -78,22 +78,15 @@ def _build_prompt(query: str, chunks: List[Document], config: dict) -> str:
         query=query,
     )
 
-
 def _get_llm() -> ChatOpenAI:
-    """
-    NVIDIA NIM uses an OpenAI-compatible API.
-    Pointing langchain-openai at NVIDIA's endpoint with the
-    Nemotron Ultra model requires only base_url and api_key changes.
-    temperature=0 - non-negotiable for legal systems.
-    """
     return ChatOpenAI(
         api_key=NVIDIA_API_KEY,
         base_url=NVIDIA_BASE_URL,
         model=NVIDIA_MODEL_NAME,
         temperature=0,
         max_tokens=1024,
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     )
-
 
 def _extract_sources(
     chunks: List[Document],
@@ -115,38 +108,96 @@ def _extract_sources(
     return sources
 
 def _is_refusal(answer_text: str, refusal_phrase: str) -> bool:
+    """
+    Detect whether the model refused to answer.
+
+    Uses three layers in order:
+    1. Exact configured refusal phrase
+    2. Pattern matching on common refusal variants
+    3. Heuristic: no citation + short-to-medium length answer
+    """
+    import re
     text_lower = answer_text.lower().strip()
 
-    # Primary: check exact configured phrase
+    # Layer 1: exact configured phrase
     if refusal_phrase.lower() in text_lower:
         return True
 
-    # Secondary: common refusal patterns (model may paraphrase)
+    # Layer 2: common refusal variants across model sizes and temperatures
     refusal_patterns = [
         "cannot answer based on the provided",
         "cannot answer this question based on the provided",
         "not able to answer based on",
         "information is not available in the provided",
         "context does not contain",
+        "context chunks do not contain",
+        "chunks do not contain",
         "documents do not contain",
         "provided sources do not",
+        "provided context does not",
         "not present in the provided",
+        "not found in the provided",
+        "context does not support",
         "the context does not support",
         "no information in the provided",
-        "not found in the provided",
+        "does not contain information about",
+        "does not contain the specific",
         "i refuse",
     ]
     if any(pattern in text_lower for pattern in refusal_patterns):
         return True
 
-    # tertiary: a short answer with no citation markers is a refusal
-    # every legitimate answer MUST cite at least one source [N]
-    import re
+    # Layer 3: no citation + no meaningful content
+    # Every legitimate answer must cite at least one source [N].
+    # Threshold raised to 250 chars to catch longer refusal sentences.
     has_citation = bool(re.search(r'\[\d+\]', answer_text))
-    if not has_citation and len(answer_text.strip()) < 120:
+    if not has_citation and len(answer_text.strip()) < 250:
         return True
 
     return False
+
+def _detect_document_filter(query: str) -> Optional[str]:
+    """
+    Detect if the query is about a specific act and return its file_name.
+
+    Why source filtering?
+    When multiple acts are in the corpus, BNSS (which constantly references
+    BNS section numbers in its schedules) dominates retrieval for BNS queries.
+    When a query clearly names a specific act, restricting retrieval to that
+    document eliminates cross-document noise and surfaces the right chunks.
+
+    Order matters: check BNSS before BNS to avoid matching "bns" in "bnss".
+    Returns None if no specific act is detected → search all documents.
+    """
+    q = query.lower()
+
+    # BNSS — check before BNS to avoid substring match
+    if any(term in q for term in [
+        "bharatiya nagarik suraksha sanhita", "bnss",
+        "nagarik suraksha", "code of criminal procedure",
+    ]):
+        return "bnss.pdf"
+
+    # BNS — avoid matching "bnss" by checking after BNSS
+    if any(term in q for term in [
+        "bharatiya nyaya sanhita", "nyaya sanhita",
+    ]) or " bns " in f" {q} ":
+        return "bns.pdf"
+
+    # BSA
+    if any(term in q for term in [
+        "bharatiya sakshya", "sakshya adhiniyam",
+    ]) or " bsa " in f" {q} ":
+        return "bsa.pdf"
+
+    # Constitution
+    if any(term in q for term in [
+        "constitution", "article ", "fundamental rights",
+        "directive principles", "preamble",
+    ]):
+        return "constitution_of_india.pdf"
+
+    return None   # No filter -> search all documents
 
 def answer_query(
     query: str,
@@ -161,7 +212,15 @@ def answer_query(
     config = _load_prompt_config(prompt_version)
 
     fetch_k = max(k * 2, 10)
-    candidates = hybrid_search(query, k=fetch_k, fetch_k=fetch_k)
+    file_filter = _detect_document_filter(query)
+    if file_filter:
+        logger.info(f"Source filter detected: {file_filter}")
+    candidates = hybrid_search(
+        query,
+        k=fetch_k,
+        fetch_k=fetch_k,
+        file_name_filter=file_filter,
+    )
 
     if not candidates:
         return RAGResponse(
@@ -184,12 +243,17 @@ def answer_query(
             answered=False, prompt_version=prompt_version,
         )
 
-    prompt   = _build_prompt(query, chunks, config)
-    llm      = _get_llm()
+    prompt = _build_prompt(query, chunks, config)
+    llm    = _get_llm()
 
-    logger.info(f"Calling {NVIDIA_MODEL_NAME}...")
+    logger.info(f"Calling {NVIDIA_MODEL_NAME} (reasoning disabled)...")
     response    = llm.invoke(prompt)
     answer_text = response.content.strip()
+
+    # Safety net: strip any <think>...</think> block that slips through
+    # in case enable_thinking isn't fully honored for a given request.
+    import re
+    answer_text = re.sub(r'<think>.*?</think>', '', answer_text, flags=re.DOTALL).strip()
 
     refusal_phrase = config.get(
         "refusal_phrase",

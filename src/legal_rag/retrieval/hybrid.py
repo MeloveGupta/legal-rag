@@ -1,5 +1,5 @@
 import logging
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from langchain_core.documents import Document
 
@@ -44,29 +44,37 @@ def reciprocal_rank_fusion(
     return [(chunk_map[cid], rrf_scores[cid]) for cid in sorted_ids]
 
 def hybrid_search(
-        query: str,
-        k: int = TOP_K_RESULTS,
-        fetch_k: int = 10,
+    query: str,
+    k: int = TOP_K_RESULTS,
+    fetch_k: int = 10,
+    file_name_filter: Optional[str] = None,
 ) -> List[Document]:
-    logger.info(f"Running hybrid search for: '{query[:60]}'")
+    """
+    Run hybrid retrieval: BM25 + vector search merged via RRF.
 
-    # run both searches in parallel concept wise - sequence wise in code
-    vector_results = similarity_search_with_scores(query, k=fetch_k)
-    bm25_results = bm25_search(query, k=fetch_k)
-
+    file_name_filter restricts both search methods to a specific
+    document when the query is clearly about one act only.
+    """
     logger.info(
-        f"Vector search: {len(vector_results)} results | "
-        f"BM25 search: {len(bm25_results)} results"
+        f"Hybrid search: '{query[:60]}' "
+        f"(filter={file_name_filter or 'none'})"
     )
 
-    # merge via rrf
-    fused = reciprocal_rank_fusion(vector_results, bm25_results)
-
-    logger.info(
-        f"After RRF fusion: {len(fused)} unique chunks "
-        f"(deduplicated from up to {len(vector_results) + len(bm25_results)})"
+    vector_results = similarity_search_with_scores(
+        query,
+        k=fetch_k,
+        file_name_filter=file_name_filter,
+    )
+    bm25_results = bm25_search(
+        query,
+        k=fetch_k,
+        file_name_filter=file_name_filter,
     )
 
-    # return top-k
-    top_k = [doc for doc, _score in fused[:k]]
+    logger.info(
+        f"Vector: {len(vector_results)} | BM25: {len(bm25_results)}"
+    )
+
+    fused  = reciprocal_rank_fusion(vector_results, bm25_results)
+    top_k  = [doc for doc, _score in fused[:k]]
     return top_k

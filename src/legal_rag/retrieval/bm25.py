@@ -1,7 +1,7 @@
 import logging
 import re
 from functools import lru_cache
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import numpy as np
 from langchain_core.documents import Document
@@ -33,10 +33,17 @@ class BM25Index:
         )
 
     def search(
-        self,
-        query: str,
-        k: int = 10,
+    self,
+    query: str,
+    k: int = 10,
+    file_name_filter: Optional[str] = None,
     ) -> List[Tuple[Document, float]]:
+        """
+        Retrieve top-k documents, optionally filtered to a specific file.
+
+        When file_name_filter is set, we fetch 3x more candidates before
+        filtering so we still return k results after the filter is applied.
+        """
         query_tokens = _tokenize(query)
         if not query_tokens:
             logger.warning("BM25 received empty query after tokenization.")
@@ -44,19 +51,25 @@ class BM25Index:
 
         scores = self.index.get_scores(query_tokens)
 
-        # Get indices of top-k scores, sorted descending
-        top_indices = np.argsort(scores)[::-1][:k]
+        # Fetch extra candidates when filtering so we have enough after
+        fetch_n = k * 3 if file_name_filter else k
+        top_indices = np.argsort(scores)[::-1][:fetch_n]
 
         results = []
         for idx in top_indices:
             score = float(scores[idx])
-            if score > 0:   # Only return chunks with at least one term match
-                results.append((self.documents[idx], score))
+            if score <= 0:
+                continue
+            doc = self.documents[idx]
+            if file_name_filter and doc.metadata.get("file_name") != file_name_filter:
+                continue
+            results.append((doc, score))
+            if len(results) >= k:
+                break
 
         logger.info(
-            f"BM25 retrieved {len(results)} results "
-            f"(with score > 0) for query: "
-            f"'{query[:60]}{'...' if len(query) > 60 else ''}'"
+            f"BM25: {len(results)} results "
+            f"(filter={file_name_filter or 'none'})"
         )
         return results
 
@@ -92,6 +105,8 @@ def get_bm25_index() -> BM25Index:
 def bm25_search(
     query: str,
     k: int = 10,
+    file_name_filter: Optional[str] = None,
 ) -> List[Tuple[Document, float]]:
+    """Public interface for BM25 search."""
     index = get_bm25_index()
-    return index.search(query, k=k)
+    return index.search(query, k=k, file_name_filter=file_name_filter)

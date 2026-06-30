@@ -1,5 +1,5 @@
 import logging
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
@@ -37,23 +37,30 @@ def add_documents(chunks: List[Document]) -> int:
     return len(chunks)
 
 def similarity_search(
-        query: str,
-        k: int = TOP_K_RESULTS,
+    query: str,
+    k: int = TOP_K_RESULTS,
+    file_name_filter: Optional[str] = None,
 ) -> List[Document]:
+    """Retrieve top-k chunks, optionally filtered to a specific document."""
     vector_store = get_vector_store()
-    results = vector_store.similarity_search(query, k=k)
+    where = {"file_name": file_name_filter} if file_name_filter else None
+    results = vector_store.similarity_search(query, k=k, filter=where)
     logger.info(
-        f"Retrieved {len(results)} chunks for query: "
-        f"{query[:60]}{'...' if len(query) > 60 else ''}'"
+        f"Vector search: {len(results)} results "
+        f"(filter={file_name_filter or 'none'})"
     )
     return results
 
+
 def similarity_search_with_scores(
-        query: str,
-        k: int = TOP_K_RESULTS,
+    query: str,
+    k: int = TOP_K_RESULTS,
+    file_name_filter: Optional[str] = None,
 ) -> List[Tuple[Document, float]]:
+    """Same as similarity_search but returns (Document, score) tuples."""
     vector_store = get_vector_store()
-    results = vector_store.similarity_search_with_score(query, k=k)
+    where = {"file_name": file_name_filter} if file_name_filter else None
+    results = vector_store.similarity_search_with_score(query, k=k, filter=where)
     return results
 
 def get_collection_stats() -> dict:

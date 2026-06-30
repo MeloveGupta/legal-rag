@@ -1,7 +1,8 @@
+import bisect
 import logging
 import re
 from collections import defaultdict
-from typing import List
+from typing import List, Tuple
 
 import tiktoken
 from langchain_core.documents import Document
@@ -18,17 +19,13 @@ def _get_token_count(text: str, encoding_name: str = "cl100k_base") -> int:
 
 
 def _merge_page_documents(documents: List[Document]) -> List[Document]:
-    # group pages by their source file
     groups: dict = defaultdict(list)
     for doc in documents:
         groups[doc.metadata.get("source", "unknown")].append(doc)
 
     merged_docs = []
     for source, pages in groups.items():
-        # sort pages by page number to ensure correct order
         pages.sort(key=lambda d: d.metadata.get("page", 0))
-
-        # concatenate with page markers
         full_text = ""
         for page in pages:
             page_num = page.metadata.get("page", "?")
@@ -43,18 +40,23 @@ def _merge_page_documents(documents: List[Document]) -> List[Document]:
             }
         ))
 
-    logger.info(
-        f"Merged {len(documents)} pages from "
-        f"{len(merged_docs)} source file(s)"
-    )
+    logger.info(f"Merged {len(documents)} pages from {len(merged_docs)} source file(s)")
     return merged_docs
 
 
-def _extract_page_from_chunk(text: str) -> int:
-    markers = re.findall(r'\[PAGE (\d+)\]', text)
-    if markers:
-        return int(markers[-1])
-    return 1
+def _build_page_offset_index(full_text: str) -> List[Tuple[int, int]]:
+    return [
+        (m.start(), int(m.group(1)))
+        for m in re.finditer(r'\[PAGE (\d+)\]', full_text)
+    ]
+
+
+def _page_for_offset(offset_index: List[Tuple[int, int]], char_offset: int) -> int:
+    if not offset_index:
+        return 1
+    offsets_only = [o for o, _ in offset_index]
+    idx = bisect.bisect_right(offsets_only, char_offset) - 1
+    return offset_index[max(idx, 0)][1]
 
 
 def _clean_page_markers(text: str) -> str:
@@ -67,34 +69,22 @@ def chunk_documents(
     chunk_overlap: int = CHUNK_OVERLAP,
     merge_pages: bool = True,
 ) -> List[Document]:
-    is_pdf = any(
-        doc.metadata.get("file_type") == "pdf"
-        for doc in documents
-    )
-
-    # Merge pages only for PDFs - web/markdown are already single documents
-    if merge_pages and is_pdf:
-        docs_to_chunk = _merge_page_documents(documents)
-    else:
-        docs_to_chunk = documents
+    is_pdf = any(doc.metadata.get("file_type") == "pdf" for doc in documents)
+    docs_to_chunk = _merge_page_documents(documents) if (merge_pages and is_pdf) else documents
 
     splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         model_name="gpt-4",
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
-        separators=[
-            "\n\n",
-            "\n",
-            ".",
-            " ",
-            "",
-        ],
+        separators=["\n\n", "\n", ".", " ", ""],
     )
 
     all_chunks: List[Document] = []
 
     for doc_index, doc in enumerate(docs_to_chunk):
-        raw_chunks = splitter.split_documents([doc])
+        full_text = doc.page_content
+        offset_index = _build_page_offset_index(full_text)
+        raw_chunks = splitter.split_text(full_text)
         total_chunks = len(raw_chunks)
 
         logger.info(
@@ -103,23 +93,33 @@ def chunk_documents(
             f"→ {total_chunks} chunks"
         )
 
-        for chunk_index, chunk in enumerate(raw_chunks):
-            # Extract page number from [PAGE N] markers before cleaning
-            page_num = _extract_page_from_chunk(chunk.page_content)
+        cursor = 0
+        for chunk_index, chunk_text in enumerate(raw_chunks):
+            # Locate this chunk's true position in the original text using
+            # a prefix as the search key — the splitter strips outer
+            # whitespace from chunks, so an exact full-text match can fail.
+            search_key = chunk_text[:80]
+            start = full_text.find(search_key, cursor)
+            if start == -1:
+                start = full_text.find(search_key)
+            if start == -1:
+                start = cursor
 
-            # Clean markers from text - LLM sees clean content
-            chunk.page_content = _clean_page_markers(chunk.page_content)
+            page_num = _page_for_offset(offset_index, start)
+            cursor = start + 1   # keep subsequent searches moving forward
 
-            chunk.metadata.update({
-                "chunk_index": chunk_index,
-                "total_chunks": total_chunks,
-                "token_count": _get_token_count(chunk.page_content),
-                "page": page_num,
-            })
-            all_chunks.append(chunk)
+            clean_text = _clean_page_markers(chunk_text)
 
-    logger.info(
-        f"Chunking complete: {len(documents)} page(s) "
-        f"→ {len(all_chunks)} total chunks"
-    )
+            all_chunks.append(Document(
+                page_content=clean_text,
+                metadata={
+                    **doc.metadata,
+                    "chunk_index": chunk_index,
+                    "total_chunks": total_chunks,
+                    "token_count": _get_token_count(clean_text),
+                    "page": page_num,
+                },
+            ))
+
+    logger.info(f"Chunking complete: {len(documents)} page(s) → {len(all_chunks)} total chunks")
     return all_chunks
