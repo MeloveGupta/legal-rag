@@ -4,7 +4,7 @@ langchain-community==0.3.23
 langchain-huggingface==0.1.2
 
 # Vector store
-chromadb==0.6.3
+chromadb==1.0.9
 
 # Embeddings
 sentence-transformers==3.4.1
