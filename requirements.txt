@@ -1,25 +1,28 @@
-# Core orchestration
+# Core orchestration — exact pins: LangChain version affects prompt/chain behavior
 langchain==0.3.25
 langchain-community==0.3.23
 langchain-huggingface==0.1.2
 
-# Vector store
-chromadb==1.0.9
+# Vector store — chromadb>=1.0.9 required by langchain-chroma 0.2.4
+# Loosely pinned: these have tight inter-dependencies that conflict when exact-pinned
+chromadb>=1.0.9
+langchain-chroma==0.2.4
 
-# Embeddings
+# Embeddings — exact pin: model version affects embedding quality and retrieval
 sentence-transformers==3.4.1
 
 # Document loading
 pypdf==5.4.0
 requests==2.32.3
 
-# Utilities
+# Utilities — exact pins for reproducibility
 python-dotenv==1.1.0
 tiktoken==0.9.0
 pyyaml==6.0.2
 beautifulsoup4==4.13.4
-langchain-chroma==0.2.4
 rank-bm25==0.2.2
 langchain-openai==0.3.18
-fastapi==0.115.6
-uvicorn==0.32.1
+
+# API server — minimum pins: any recent version works, let pip resolve with chromadb
+fastapi>=0.115.6
+uvicorn>=0.32.1
