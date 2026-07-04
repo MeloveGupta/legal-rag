@@ -4,6 +4,9 @@
 # Environment variables - never commit this
 .env
 
+# Next
+frontend/.next/
+
 # Python cache
 __pycache__/
 *.pyc

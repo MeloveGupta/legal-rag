@@ -37,7 +37,9 @@ CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "100"))
 
 # validation
 if not NVIDIA_API_KEY:
-    raise EnvironmentError(
-        "NVIDIA_API_KEY is not set. "
-        "Get a free key at build.nvidia.com - no credit card needed."
+    import warnings
+    warnings.warn(
+        "NVIDIA_API_KEY is not set. LLM calls will fail. "
+        "Set it in .env or as a CI secret.",
+        stacklevel=2,
     )
