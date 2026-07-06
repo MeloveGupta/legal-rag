@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 const links = [
   { label: 'Pipeline', href: '#pipeline' },
   { label: 'Coverage', href: '#coverage' },
-  { label: 'Playground', href: '#demo' },
+  { label: 'Playground', href: '/chat' },
   { label: 'Why Pramaan', href: '#why' },
 ]
 
@@ -51,7 +51,7 @@ export function SiteNav() {
         </div>
 
         <a
-          href="#demo"
+          href="/chat"
           className="group inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all duration-300 hover:gap-2.5 hover:brightness-110"
         >
           Launch

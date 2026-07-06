@@ -58,7 +58,7 @@ export function Hero() {
           style={{ animation: 'fade-up 1.1s ease 0.28s both' }}
         >
           <a
-            href="#demo"
+            href="/chat"
             className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[0_0_40px_-8px_rgba(232,200,146,0.4)] transition-all duration-300 hover:gap-3 hover:shadow-[0_0_50px_-6px_rgba(232,200,146,0.55)]"
           >
             Launch Playground

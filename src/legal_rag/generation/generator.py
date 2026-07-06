@@ -43,7 +43,6 @@ class CitedSource:
     content_preview: str
     rerank_score: float = 0.0
 
-
 @dataclass
 class RAGResponse:
     answer: str
@@ -52,7 +51,6 @@ class RAGResponse:
     retrieved_chunks: List[Document]
     answered: bool = True
     prompt_version: str = "v1"
-
 
 def _build_prompt(query: str, chunks: List[Document], config: dict) -> str:
     context_block = ""
@@ -251,9 +249,14 @@ def answer_query(
     answer_text = response.content.strip()
 
     # Safety net: strip any <think>...</think> block that slips through
-    # in case enable_thinking isn't fully honored for a given request.
     import re
     answer_text = re.sub(r'<think>.*?</think>', '', answer_text, flags=re.DOTALL).strip()
+
+    # Replace em dashes and en dashes from source legal text with spaced hyphens.
+    # The Constitution and other Indian statutes use em dashes as punctuation
+    # (e.g. "Article 32.—(1)"). The LLM reproduces this style; we normalize it
+    # here so the frontend always sees clean, readable punctuation.
+    answer_text = answer_text.replace('\u2014', ' - ').replace('\u2013', ' - ')
 
     refusal_phrase = config.get(
         "refusal_phrase",

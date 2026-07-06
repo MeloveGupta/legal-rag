@@ -60,14 +60,22 @@ def query(request: QueryRequest):
     logger.info(f"Query received: '{request.query[:80]}'")
     start = time.time()
 
-    try:
-        response = answer_query(
-            query=request.query,
-            k=request.k,
-            prompt_version=request.prompt_version,
-        )
-    except Exception as e:
-        logger.error(f"Query failed: {e}")
+    last_error = None
+    for attempt in range(3):
+        try:
+            response = answer_query(
+                query=request.query,
+                k=request.k,
+                prompt_version=request.prompt_version,
+            )
+            break
+        except Exception as e:
+            last_error = e
+            logger.warning(f"Query attempt {attempt + 1}/3 failed: {e}")
+            if attempt < 2:
+                time.sleep(5 * (attempt + 1))   # 5s then 10s
+    else:
+        logger.error(f"All 3 attempts failed. Last error: {last_error}")
         raise HTTPException(
             status_code=500,
             detail="An error occurred while processing your query.",
