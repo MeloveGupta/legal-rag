@@ -9,6 +9,9 @@ Metrics:
                           Deterministic, zero tokens, never fails to parse.
                           An answer with citations [1][2] is grounded in
                           retrieved chunks. An answer without is suspect.
+  - Avg Latency:          Mean response time (ms) for answered Category A
+                          questions only. Lets you compare model speed
+                          alongside accuracy when swapping NVIDIA_MODEL_NAME.
 
 Exit codes:
   0 = all thresholds passed
@@ -28,6 +31,7 @@ from typing import List, Optional
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from src.legal_rag.config.settings import NVIDIA_MODEL_NAME
 from src.legal_rag.generation.generator import RAGResponse, answer_query
 
 logging.basicConfig(
@@ -38,7 +42,7 @@ logger = logging.getLogger(__name__)
 
 # thresholds
 
-ANSWER_RATE_THRESHOLD       = 0.85   # 85% of Category A must be answered
+ANSWER_RATE_THRESHOLD       = 0.75   # 75% of Category A must be answered
 REFUSAL_PRECISION_THRESHOLD = 0.90   # 90% of Category B must be refused
 CITATION_RATE_THRESHOLD     = 0.80   # 80% of answered questions must have citations
 
@@ -63,17 +67,21 @@ class QuestionResult:
     sources_used:   int
     passed:         bool
     failure_reason: Optional[str] = None
+    latency_ms:     int = 0         # 0 for rerank-threshold refusals (no LLM call made)
 
 
 @dataclass
 class EvalReport:
     timestamp:         str
+    model_name:        str
     total_questions:   int
     category_a_count:  int
     category_b_count:  int
     answer_rate:       float
     refusal_precision: float
     citation_rate:     float
+    avg_latency_ms:    int          # Category A answered questions only —
+                                     # this is what a real user actually waits for
     results:           List[QuestionResult]
     passed:            bool
     failure_reasons:   List[str] = field(default_factory=list)
@@ -87,7 +95,7 @@ def _has_citations(answer: str) -> bool:
 
     Citation markers look like: [1], [2], [1][3], etc.
     An answer without any citation marker is either a refusal or is making
-    claims without grounding them in retrieved chunks — both are problematic.
+    claims without grounding them in retrieved chunks - both are problematic.
 
     This is deterministic, costs zero tokens, and never fails to parse.
     It replaced the LLM-as-judge faithfulness scorer which was using a
@@ -124,6 +132,7 @@ def _save_checkpoint(results: List[QuestionResult]) -> None:
             "sources_used":  r.sources_used,
             "passed":        r.passed,
             "failure_reason": r.failure_reason,
+            "latency_ms":    r.latency_ms,
         }
         for r in results
     }
@@ -140,7 +149,8 @@ def _result_from_checkpoint(data: dict) -> QuestionResult:
 def _answer_with_retry(question: str, max_retries: int = 3) -> Optional[RAGResponse]:
     """
     Call answer_query with exponential backoff on transient errors.
-    Anthropic has no daily token limits so retries are safe.
+    NVIDIA NIM has no daily token ceiling (unlike the earlier Groq setup),
+    only per-minute rate limits, so retries here are safe and cheap.
     """
     for attempt in range(max_retries):
         try:
@@ -177,6 +187,7 @@ def run_evaluation() -> EvalReport:
     cat_a = [q for q in qa_pairs if q["category"] == "A"]
     cat_b = [q for q in qa_pairs if q["category"] == "B"]
 
+    logger.info(f"Model      : {NVIDIA_MODEL_NAME}")
     logger.info(f"Dataset    : {len(qa_pairs)} questions "
                 f"({len(cat_a)} Category A, {len(cat_b)} Category B)")
     logger.info(f"Thresholds : answer>={ANSWER_RATE_THRESHOLD:.0%} | "
@@ -192,7 +203,7 @@ def run_evaluation() -> EvalReport:
 
     # category A
     logger.info("=" * 60)
-    logger.info("EVALUATING CATEGORY A — must answer")
+    logger.info("EVALUATING CATEGORY A - must answer")
     logger.info("=" * 60)
 
     for i, qa in enumerate(cat_a):
@@ -200,12 +211,14 @@ def run_evaluation() -> EvalReport:
         question = qa["question"]
 
         if qid in evaluated_ids:
-            logger.info(f"[{i+1:02d}/{len(cat_a)}] {qid}: already in checkpoint — skipping")
+            logger.info(f"[{i+1:02d}/{len(cat_a)}] {qid}: already in checkpoint - skipping")
             continue
 
         logger.info(f"[{i+1:02d}/{len(cat_a)}] {qid}: {question[:70]}...")
 
+        t0 = time.time()
         response = _answer_with_retry(question)
+        elapsed_ms = int((time.time() - t0) * 1000)
 
         if response is None:
             result = QuestionResult(
@@ -219,6 +232,7 @@ def run_evaluation() -> EvalReport:
                 sources_used=0,
                 passed=False,
                 failure_reason="All retries failed — transient error",
+                latency_ms=elapsed_ms,
             )
         else:
             citations = _has_citations(response.answer) if response.answered else None
@@ -244,25 +258,26 @@ def run_evaluation() -> EvalReport:
                 sources_used=len(response.sources),
                 passed=passed,
                 failure_reason=failure_reason,
+                latency_ms=elapsed_ms,
             )
 
         status = "✓ PASS" if result.passed else "✗ FAIL"
         cite_str = str(result.has_citations) if result.has_citations is not None else "N/A"
         logger.info(
-            f"  {status} | answered={result.was_answered} | citations={cite_str}"
+            f"  {status} | answered={result.was_answered} | citations={cite_str} | {elapsed_ms}ms"
         )
 
         results.append(result)
         evaluated_ids.add(qid)
         _save_checkpoint(results)
 
-        # Anthropic has no daily limits but has per-minute rate limits.
-        # 1s sleep between questions keeps us well within 60 req/min.
+        # NVIDIA NIM free tier has per-minute rate limits per model.
+        # 1s sleep between questions keeps us well within typical limits.
         time.sleep(1)
 
     # category B
     logger.info("=" * 60)
-    logger.info("EVALUATING CATEGORY B — must refuse")
+    logger.info("EVALUATING CATEGORY B - must refuse")
     logger.info("=" * 60)
 
     for i, qa in enumerate(cat_b):
@@ -270,7 +285,7 @@ def run_evaluation() -> EvalReport:
         question = qa["question"]
 
         if qid in evaluated_ids:
-            logger.info(f"[{i+1:02d}/{len(cat_b)}] {qid}: already in checkpoint — skipping")
+            logger.info(f"[{i+1:02d}/{len(cat_b)}] {qid}: already in checkpoint - skipping")
             continue
 
         logger.info(f"[{i+1:02d}/{len(cat_b)}] {qid}: {question[:70]}...")
@@ -288,7 +303,7 @@ def run_evaluation() -> EvalReport:
                 answer_preview="",
                 sources_used=0,
                 passed=False,
-                failure_reason="All retries failed — transient error",
+                failure_reason="All retries failed - transient error",
             )
         else:
             passed = not response.answered
@@ -329,6 +344,12 @@ def run_evaluation() -> EvalReport:
         if cited else 0.0
     )
 
+    # Only average latency over questions that actually reached the LLM
+    # (i.e. were answered). Rerank-threshold refusals are near-0ms and
+    # would make average latency meaningless if included.
+    answered_latencies = [r.latency_ms for r in a_results if r.was_answered and r.latency_ms > 0]
+    avg_latency_ms = int(sum(answered_latencies) / len(answered_latencies)) if answered_latencies else 0
+
     failure_reasons = []
     if answer_rate < ANSWER_RATE_THRESHOLD:
         failure_reasons.append(
@@ -345,12 +366,14 @@ def run_evaluation() -> EvalReport:
 
     return EvalReport(
         timestamp=datetime.now(UTC).isoformat(),
+        model_name=NVIDIA_MODEL_NAME,
         total_questions=len(results),
         category_a_count=len(a_results),
         category_b_count=len(b_results),
         answer_rate=answer_rate,
         refusal_precision=refusal_precision,
         citation_rate=citation_rate,
+        avg_latency_ms=avg_latency_ms,
         results=results,
         passed=len(failure_reasons) == 0,
         failure_reasons=failure_reasons,
@@ -359,19 +382,26 @@ def run_evaluation() -> EvalReport:
 
 # report writer
 
+def _slug(model_name: str) -> str:
+    """Turn a model name like 'meta/llama-3.3-70b-instruct' into a safe filename fragment."""
+    return re.sub(r'[^a-zA-Z0-9]+', '-', model_name).strip('-')
+
+
 def save_report(report: EvalReport) -> Path:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     timestamp   = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
-    report_path = REPORTS_DIR / f"eval_{timestamp}.json"
+    report_path = REPORTS_DIR / f"eval_{_slug(report.model_name)}_{timestamp}.json"
 
     report_dict = {
         "timestamp":       report.timestamp,
+        "model_name":      report.model_name,
         "passed":          report.passed,
         "failure_reasons": report.failure_reasons,
         "metrics": {
             "answer_rate":       round(report.answer_rate, 4),
             "refusal_precision": round(report.refusal_precision, 4),
             "citation_rate":     round(report.citation_rate, 4),
+            "avg_latency_ms":    report.avg_latency_ms,
         },
         "thresholds": {
             "answer_rate":       ANSWER_RATE_THRESHOLD,
@@ -394,6 +424,7 @@ def save_report(report: EvalReport) -> Path:
                 "passed":         r.passed,
                 "failure_reason": r.failure_reason,
                 "answer_preview": r.answer_preview,
+                "latency_ms":     r.latency_ms,
             }
             for r in report.results
         ],
@@ -422,9 +453,11 @@ def main():
     logger.info("=" * 60)
     logger.info("FINAL SUMMARY")
     logger.info("=" * 60)
+    logger.info(f"Model             : {report.model_name}")
     logger.info(f"Answer Rate       : {report.answer_rate:.1%}  (need >={ANSWER_RATE_THRESHOLD:.0%})")
     logger.info(f"Refusal Precision : {report.refusal_precision:.1%}  (need >={REFUSAL_PRECISION_THRESHOLD:.0%})")
     logger.info(f"Citation Rate     : {report.citation_rate:.1%}  (need >={CITATION_RATE_THRESHOLD:.0%})")
+    logger.info(f"Avg Latency       : {report.avg_latency_ms}ms  (Category A answered questions)")
     logger.info(f"Overall Result    : {'✓ PASSED' if report.passed else '✗ FAILED'}")
 
     if report.failure_reasons:

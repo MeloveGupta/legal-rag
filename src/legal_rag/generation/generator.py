@@ -76,15 +76,28 @@ def _build_prompt(query: str, chunks: List[Document], config: dict) -> str:
         query=query,
     )
 
+# Models that default to chain-of-thought reasoning and require this flag
+# to be explicitly disabled. Llama 3.3 and Qwen3-Next-*-Instruct are plain
+# non-reasoning models — Qwen ships Instruct and Thinking as two entirely
+# separate models — so they never need or accept this parameter.
+_REASONING_MODELS = {
+    "nvidia/nemotron-3-ultra-550b-a55b",
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/nemotron-3-nano-30b-a3b",
+}
+
+
 def _get_llm() -> ChatOpenAI:
-    return ChatOpenAI(
+    kwargs = dict(
         api_key=NVIDIA_API_KEY,
         base_url=NVIDIA_BASE_URL,
         model=NVIDIA_MODEL_NAME,
         temperature=0,
         max_tokens=1024,
-        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     )
+    if NVIDIA_MODEL_NAME in _REASONING_MODELS:
+        kwargs["extra_body"] = {"chat_template_kwargs": {"enable_thinking": False}}
+    return ChatOpenAI(**kwargs)
 
 def _extract_sources(
     chunks: List[Document],
@@ -203,7 +216,7 @@ def answer_query(
     prompt_version: str = "v2",
 ) -> RAGResponse:
     """
-    Full RAG pipeline: hybrid search -> rerank -> Nemotron Ultra -> cited answer.
+    Full RAG pipeline: hybrid search -> rerank -> LLM -> cited answer.
     """
     logger.info(f"Query: '{query[:80]}'")
 
@@ -244,7 +257,7 @@ def answer_query(
     prompt = _build_prompt(query, chunks, config)
     llm    = _get_llm()
 
-    logger.info(f"Calling {NVIDIA_MODEL_NAME} (reasoning disabled)...")
+    logger.info(f"Calling {NVIDIA_MODEL_NAME}...")
     response    = llm.invoke(prompt)
     answer_text = response.content.strip()
 
