@@ -57,7 +57,7 @@ def _build_prompt(query: str, chunks: List[Document], config: dict) -> str:
     for i, chunk in enumerate(chunks):
         source_label = (
             f"{chunk.metadata.get('file_name', chunk.metadata.get('source', 'Unknown'))}"
-            f" — Page {chunk.metadata.get('page', 'N/A')}"
+            f" - Page {chunk.metadata.get('page', 'N/A')}"
             f" (Chunk {chunk.metadata.get('chunk_index', i) + 1}"
             f" of {chunk.metadata.get('total_chunks', '?')})"
         )
@@ -76,10 +76,6 @@ def _build_prompt(query: str, chunks: List[Document], config: dict) -> str:
         query=query,
     )
 
-# Models that default to chain-of-thought reasoning and require this flag
-# to be explicitly disabled. Llama 3.3 and Qwen3-Next-*-Instruct are plain
-# non-reasoning models — Qwen ships Instruct and Thinking as two entirely
-# separate models — so they never need or accept this parameter.
 _REASONING_MODELS = {
     "nvidia/nemotron-3-ultra-550b-a55b",
     "nvidia/nemotron-3-super-120b-a12b",
@@ -178,18 +174,18 @@ def _detect_document_filter(query: str) -> Optional[str]:
     document eliminates cross-document noise and surfaces the right chunks.
 
     Order matters: check BNSS before BNS to avoid matching "bns" in "bnss".
-    Returns None if no specific act is detected → search all documents.
+    Returns None if no specific act is detected -> search all documents.
     """
     q = query.lower()
 
-    # BNSS — check before BNS to avoid substring match
+    # BNSS - check before BNS to avoid substring match
     if any(term in q for term in [
         "bharatiya nagarik suraksha sanhita", "bnss",
         "nagarik suraksha", "code of criminal procedure",
     ]):
         return "bnss.pdf"
 
-    # BNS — avoid matching "bnss" by checking after BNSS
+    # BNS - avoid matching "bnss" by checking after BNSS
     if any(term in q for term in [
         "bharatiya nyaya sanhita", "nyaya sanhita",
     ]) or " bns " in f" {q} ":
@@ -207,6 +203,19 @@ def _detect_document_filter(query: str) -> Optional[str]:
         "directive principles", "preamble",
     ]):
         return "constitution_of_india.pdf"
+    
+    # Labour Codes
+    if any(term in q for term in ["code on wages", "wage code"]):
+        return "code_on_wages_2019.pdf"
+
+    if "industrial relations code" in q:
+        return "industrial_relations_code_2020.pdf"
+
+    if any(term in q for term in ["social security code", "code on social security"]):
+        return "social_security_code_2020.pdf"
+
+    if any(term in q for term in ["occupational safety", "osh code", "health and working conditions"]):
+        return "osh_code_2020.pdf"
 
     return None   # No filter -> search all documents
 
@@ -266,9 +275,6 @@ def answer_query(
     answer_text = re.sub(r'<think>.*?</think>', '', answer_text, flags=re.DOTALL).strip()
 
     # Replace em dashes and en dashes from source legal text with spaced hyphens.
-    # The Constitution and other Indian statutes use em dashes as punctuation
-    # (e.g. "Article 32.—(1)"). The LLM reproduces this style; we normalize it
-    # here so the frontend always sees clean, readable punctuation.
     answer_text = answer_text.replace('\u2014', ' - ').replace('\u2013', ' - ')
 
     refusal_phrase = config.get(

@@ -65,9 +65,9 @@ def main():
     if args.all:
         raw_dir = PROJECT_ROOT / "data" / "raw"
         files = sorted(
-            list(raw_dir.glob("*.pdf")) +
-            list(raw_dir.glob("*.md")) +
-            list(raw_dir.glob("*.markdown"))
+            list(raw_dir.rglob("*.pdf")) +
+            list(raw_dir.rglob("*.md")) +
+            list(raw_dir.rglob("*.markdown"))
         )
         if not files:
             logger.error(f"No documents found in {raw_dir}")
