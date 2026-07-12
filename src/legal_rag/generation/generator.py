@@ -216,6 +216,27 @@ def _detect_document_filter(query: str) -> Optional[str]:
 
     if any(term in q for term in ["occupational safety", "osh code", "health and working conditions"]):
         return "osh_code_2020.pdf"
+    
+    # Civil law foundations
+    if any(term in q for term in ["contract act", "indian contract act"]):
+        return "contract_act_1872.pdf"
+
+    if any(term in q for term in [
+        "civil procedure code", "code of civil procedure",
+    ]) or " cpc " in f" {q} ":
+        return "civil_procedure_code_1908.pdf"
+
+    if "transfer of property" in q:
+        return "transfer_of_property_act_1882.pdf"
+
+    if "specific relief" in q:
+        return "specific_relief_act_1963.pdf"
+
+    if "limitation act" in q:
+        return "limitation_act_1963.pdf"
+
+    if "general clauses act" in q:
+        return "general_clauses_act_1897.pdf"
 
     return None   # No filter -> search all documents
 
