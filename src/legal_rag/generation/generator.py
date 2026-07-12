@@ -237,6 +237,32 @@ def _detect_document_filter(query: str) -> Optional[str]:
 
     if "general clauses act" in q:
         return "general_clauses_act_1897.pdf"
+    
+    # High practical utility
+    if "motor vehicle" in q:
+        return "motor_vehicles_act_1988.pdf"
+
+    if any(term in q for term in [
+        "negotiable instruments act", "cheque bounce",
+        "dishonour of cheque", "bounced cheque",
+    ]):
+        return "negotiable_instruments_act_1881.pdf"
+
+    if any(term in q for term in [
+        "information technology act", "cyber crime", "cyber offence",
+    ]):
+        return "it_act_2000.pdf"
+
+    if "consumer protection" in q:
+        return "consumer_protection_act_2019.pdf"
+
+    if any(term in q for term in ["right to information act", "rti act"]) or " rti " in f" {q} ":
+        return "rti_act_2005.pdf"
+
+    if any(term in q for term in [
+        "digital personal data protection", "dpdp act", "data protection act",
+    ]):
+        return "dpdp_act_2023.pdf"
 
     return None   # No filter -> search all documents
 
