@@ -278,7 +278,7 @@ def answer_query(
 
     config = _load_prompt_config(prompt_version)
 
-    fetch_k = max(k * 2, 10)
+    fetch_k = max(k * 6, 30)
     file_filter = _detect_document_filter(query)
     if file_filter:
         logger.info(f"Source filter detected: {file_filter}")

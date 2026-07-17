@@ -554,6 +554,474 @@
       "should_answer": true
     },
     {
+      "id": "A061",
+      "category": "A",
+      "document": "code_on_wages_2019.pdf",
+      "question": "What does the Code on Wages, 2019 include and exclude from the definition of 'wages'?",
+      "expected_answer": "Under Section 2(y) of the Code on Wages, wages means all remuneration expressed in money terms including basic pay, dearness allowance, and retaining allowance. It excludes bonus, house-accommodation value, employer PF/pension contributions, conveyance allowance, HRA, overtime allowance, commission, and gratuity — but if these exclusions collectively exceed 50% of total remuneration, the excess is added back into wages.",
+      "source_hint": "Section 2(y), Code on Wages 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A062",
+      "category": "A",
+      "document": "code_on_wages_2019.pdf",
+      "question": "What does the Code on Wages, 2019 say about the floor wage?",
+      "expected_answer": "Under Section 9, the Central Government shall fix a floor wage taking into account minimum living standards of a worker, and different floor wages may be fixed for different geographical areas. The minimum rates of wages fixed by any State cannot be less than the floor wage, and if a State's existing minimum wage is already higher than the floor wage, the State cannot reduce it.",
+      "source_hint": "Section 9, Code on Wages 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A063",
+      "category": "A",
+      "document": "code_on_wages_2019.pdf",
+      "question": "What time limits does the Code on Wages, 2019 set for payment of wages?",
+      "expected_answer": "Under Section 17, wages must be paid before the end of the shift for daily-wage workers, before the weekly holiday for weekly-wage workers, within two days of the fortnight's end for fortnightly workers, and before the 7th day of the following month for monthly-wage workers. If a worker is removed, dismissed, or retrenched, wages must be paid within two working days.",
+      "source_hint": "Section 17, Code on Wages 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A064",
+      "category": "A",
+      "document": "code_on_wages_2019.pdf",
+      "question": "What does the Code on Wages, 2019 say about minimum and maximum bonus eligibility?",
+      "expected_answer": "Under Section 26, every eligible employee who has worked at least 30 days in an accounting year must be paid an annual minimum bonus of 8.33% of wages earned or one hundred rupees, whichever is higher, regardless of whether the employer has allocable surplus. Where allocable surplus exceeds the minimum bonus, the employer must pay a proportionate bonus subject to a maximum of 20% of wages earned.",
+      "source_hint": "Section 26, Code on Wages 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A065",
+      "category": "A",
+      "document": "code_on_wages_2019.pdf",
+      "question": "What penalties does the Code on Wages, 2019 prescribe for underpayment of wages?",
+      "expected_answer": "Under Section 54, an employer who pays an employee less than the amount due is punishable with a fine up to fifty thousand rupees. If convicted again for a similar offence within five years, the employer is punishable with imprisonment up to three months or a fine up to one lakh rupees, or both.",
+      "source_hint": "Section 54, Code on Wages 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A066",
+      "category": "A",
+      "document": "industrial_relations_code_2020.pdf",
+      "question": "What is a Works Committee under the Industrial Relations Code, 2020 and when must one be constituted?",
+      "expected_answer": "Under Section 3, an industrial establishment with 100 or more workers may be required by the appropriate Government to constitute a Works Committee with representatives of employer and workers, where worker representatives shall not be fewer than employer representatives. Its duty is to promote amity and good relations between employer and workers and address matters of common interest.",
+      "source_hint": "Section 3, Industrial Relations Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A067",
+      "category": "A",
+      "document": "industrial_relations_code_2020.pdf",
+      "question": "What is a Grievance Redressal Committee under the Industrial Relations Code, 2020?",
+      "expected_answer": "Under Section 4, every industrial establishment employing 20 or more workers must have one or more Grievance Redressal Committees, with equal representation of employer and workers, a maximum of 10 members, and adequate representation of women workers. The Committee must resolve individual grievance applications within 30 days, with an appeal to conciliation available within 60 days if unresolved.",
+      "source_hint": "Section 4, Industrial Relations Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A068",
+      "category": "A",
+      "document": "industrial_relations_code_2020.pdf",
+      "question": "What are the requirements for registering a Trade Union under the Industrial Relations Code, 2020?",
+      "expected_answer": "Under Section 6, any seven or more members of a Trade Union may apply for registration. No Trade Union of workers shall be registered unless at least 10% of the workers, or 100 workers, whichever is less, engaged in the establishment are members on the date of application, and a registered union must continue to maintain this membership threshold, subject to a minimum of seven members.",
+      "source_hint": "Section 6, Industrial Relations Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A069",
+      "category": "A",
+      "document": "industrial_relations_code_2020.pdf",
+      "question": "To which industrial establishments does the requirement for Standing Orders apply under the Industrial Relations Code, 2020?",
+      "expected_answer": "Under Section 28, the Standing Orders chapter applies to every industrial establishment where 300 or more workers are employed or were employed on any day of the preceding twelve months.",
+      "source_hint": "Section 28, Industrial Relations Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A070",
+      "category": "A",
+      "document": "industrial_relations_code_2020.pdf",
+      "question": "What notice periods does the Industrial Relations Code, 2020 require before a strike or lock-out?",
+      "expected_answer": "Under Section 62, no worker may go on strike without giving 60 days' notice, and the strike cannot begin within 14 days of that notice or before the date specified in the notice. The same notice periods apply to lock-outs by employers. Strikes and lock-outs are also prohibited during pendency of conciliation, arbitration, or Tribunal proceedings and for a period afterward.",
+      "source_hint": "Section 62, Industrial Relations Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A071",
+      "category": "A",
+      "document": "osh_code_2020.pdf",
+      "question": "What are the general duties of an employer under the Occupational Safety, Health and Working Conditions Code, 2020?",
+      "expected_answer": "Under Section 6, every employer must ensure the workplace is free from hazards likely to cause injury or disease, comply with occupational safety and health standards, provide free annual health examinations to prescribed classes of employees, maintain a safe working environment, ensure proper disposal of hazardous waste, and issue appointment letters to every employee.",
+      "source_hint": "Section 6, OSH Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A072",
+      "category": "A",
+      "document": "osh_code_2020.pdf",
+      "question": "When must an establishment appoint safety officers under the Occupational Safety, Health and Working Conditions Code, 2020?",
+      "expected_answer": "Under Section 22, an employer must appoint safety officers in a factory with 500 or more workers, a factory carrying on a hazardous process with 250 or more workers, building or construction work with 250 or more workers, or a mine with 100 or more workers ordinarily employed.",
+      "source_hint": "Section 22, OSH Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A073",
+      "category": "A",
+      "document": "osh_code_2020.pdf",
+      "question": "What do the daily and weekly working hour limits under the Occupational Safety, Health and Working Conditions Code, 2020 provide?",
+      "expected_answer": "Under Section 25, no worker shall be required or allowed to work more than eight hours in a day. Under Section 26, no worker shall be allowed to work in an establishment for more than six days in any one week, subject to certain exemptions for motor transport undertakings.",
+      "source_hint": "Sections 25-26, OSH Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A074",
+      "category": "A",
+      "document": "osh_code_2020.pdf",
+      "question": "What annual leave with wages is a worker entitled to under the Occupational Safety, Health and Working Conditions Code, 2020?",
+      "expected_answer": "Under Section 32, a worker who has worked 180 days or more in a calendar year is entitled to one day of leave for every 20 days worked, or for every 15 days worked in the case of an adolescent worker or a worker employed below ground in a mine. Unused leave may be carried forward up to a maximum of 30 days, and workers may encash leave exceeding that limit.",
+      "source_hint": "Section 32, OSH Code 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A075",
+      "category": "A",
+      "document": "social_security_code_2020.pdf",
+      "question": "What contribution rates apply to the Employees' Provident Fund under the Code on Social Security, 2020?",
+      "expected_answer": "Under Section 16, the employer's contribution to the Provident Fund is 10% of wages for each employee, matched by an equal employee contribution, though this is raised to 12% for establishments specified by Central Government notification. An employee may voluntarily contribute more, but the employer is not obligated to match any amount above its required contribution.",
+      "source_hint": "Section 16, Code on Social Security 2020",
+      "should_answer": true
+    },
+    {
+      "id": "A076",
+      "category": "A",
+      "document": "contract_act_1872.pdf",
+      "question": "What makes an agreement a valid contract under the Indian Contract Act?",
+      "expected_answer": "Under Section 10, all agreements are contracts if made by the free consent of parties competent to contract, for a lawful consideration and with a lawful object, and are not expressly declared void by the Act.",
+      "source_hint": "Section 10, Contract Act 1872",
+      "should_answer": true
+    },
+    {
+      "id": "A077",
+      "category": "A",
+      "document": "contract_act_1872.pdf",
+      "question": "What constitutes coercion and undue influence under the Indian Contract Act?",
+      "expected_answer": "Under Section 15, coercion is committing or threatening to commit any act forbidden by law, or unlawfully detaining or threatening to detain property, to force a person into an agreement. Under Section 16, undue influence occurs where one party is in a position to dominate the will of the other, such as through a fiduciary relationship, and uses that position to obtain an unfair advantage.",
+      "source_hint": "Sections 15-16, Contract Act 1872",
+      "should_answer": true
+    },
+    {
+      "id": "A078",
+      "category": "A",
+      "document": "contract_act_1872.pdf",
+      "question": "Can an agreement without consideration be a valid contract under the Indian Contract Act?",
+      "expected_answer": "Under Section 25, an agreement without consideration is generally void, except in three cases: it is in writing and registered and made out of natural love and affection between parties in a near relation; it is a promise to compensate someone who has already voluntarily done something for the promisor; or it is a written, signed promise to pay a debt that is time-barred under the limitation law.",
+      "source_hint": "Section 25, Contract Act 1872",
+      "should_answer": true
+    },
+    {
+      "id": "A079",
+      "category": "A",
+      "document": "contract_act_1872.pdf",
+      "question": "How does the Indian Contract Act define a contract of indemnity and a contract of guarantee?",
+      "expected_answer": "Under Section 124, a contract of indemnity is one where a party promises to save the other from loss caused by the promisor's own conduct or the conduct of any other person. Under Section 126, a contract of guarantee is a contract to perform the promise or discharge the liability of a third person in case of their default; the person giving the guarantee is the surety, the person in default is the principal debtor, and the person to whom the guarantee is given is the creditor.",
+      "source_hint": "Sections 124 and 126, Contract Act 1872",
+      "should_answer": true
+    },
+    {
+      "id": "A080",
+      "category": "A",
+      "document": "civil_procedure_code_1908.pdf",
+      "question": "What does the Code of Civil Procedure say about the principle of res judicata?",
+      "expected_answer": "Under Section 11, no court shall try any suit or issue in which the matter directly and substantially in issue has already been directly and substantially in issue in a former suit between the same parties, litigating under the same title, in a court competent to try the subsequent suit, and which has been heard and finally decided by that court.",
+      "source_hint": "Section 11, CPC 1908",
+      "should_answer": true
+    },
+    {
+      "id": "A081",
+      "category": "A",
+      "document": "civil_procedure_code_1908.pdf",
+      "question": "Where must a suit relating to immovable property be instituted under the Code of Civil Procedure?",
+      "expected_answer": "Under Section 16, suits for recovery of immovable property, partition of immovable property, foreclosure, sale or redemption of a mortgage, or determination of a right or interest in immovable property must be instituted in the court within whose local limits the property is situated.",
+      "source_hint": "Section 16, CPC 1908",
+      "should_answer": true
+    },
+    {
+      "id": "A082",
+      "category": "A",
+      "document": "civil_procedure_code_1908.pdf",
+      "question": "What does the Code of Civil Procedure say about a court's power to award interest on a money decree?",
+      "expected_answer": "Under Section 34, where a decree is for payment of money, the court may order interest at a rate it deems reasonable on the principal sum from the date of the suit to the date of the decree, and further interest not exceeding six percent per annum from the date of the decree to the date of payment, except that for commercial transactions the further interest rate may exceed six percent up to the contractual rate.",
+      "source_hint": "Section 34, CPC 1908",
+      "should_answer": true
+    },
+    {
+      "id": "A083",
+      "category": "A",
+      "document": "transfer_of_property_act_1882.pdf",
+      "question": "How does the Transfer of Property Act define a sale of immovable property?",
+      "expected_answer": "Under Section 54, a sale is a transfer of ownership in exchange for a price paid, promised, or part-paid and part-promised. For tangible immovable property valued at one hundred rupees or more, the transfer can only be made by a registered instrument; for property valued below that, it may be made by registered instrument or by delivery of the property.",
+      "source_hint": "Section 54, Transfer of Property Act 1882",
+      "should_answer": true
+    },
+    {
+      "id": "A084",
+      "category": "A",
+      "document": "transfer_of_property_act_1882.pdf",
+      "question": "What types of mortgages does the Transfer of Property Act recognise?",
+      "expected_answer": "Under Section 58, the Transfer of Property Act recognises a simple mortgage, mortgage by conditional sale, usufructuary mortgage, English mortgage, mortgage by deposit of title-deeds, and anomalous mortgage, which is any mortgage not falling into the other five categories.",
+      "source_hint": "Section 58, Transfer of Property Act 1882",
+      "should_answer": true
+    },
+    {
+      "id": "A085",
+      "category": "A",
+      "document": "transfer_of_property_act_1882.pdf",
+      "question": "What is a mortgagor's right to redeem under the Transfer of Property Act?",
+      "expected_answer": "Under Section 60, at any time after the principal money has become due, the mortgagor has a right, on payment or tender of the mortgage money, to require the mortgagee to deliver the mortgage deed and related documents, deliver possession of the property if the mortgagee holds it, and re-transfer the property or execute an acknowledgment that the mortgagee's interest has been extinguished.",
+      "source_hint": "Section 60, Transfer of Property Act 1882",
+      "should_answer": true
+    },
+    {
+      "id": "A086",
+      "category": "A",
+      "document": "specific_relief_act_1963.pdf",
+      "question": "Which contracts cannot be specifically enforced under the Specific Relief Act?",
+      "expected_answer": "Under Section 14, a contract cannot be specifically enforced where a party has already obtained substituted performance under Section 20, where performance involves a continuous duty the court cannot supervise, where the contract is so dependent on personal qualifications of the parties that the court cannot enforce its material terms, or where the contract is in its nature determinable.",
+      "source_hint": "Section 14, Specific Relief Act 1963",
+      "should_answer": true
+    },
+    {
+      "id": "A087",
+      "category": "A",
+      "document": "specific_relief_act_1963.pdf",
+      "question": "When may a perpetual injunction be granted under the Specific Relief Act?",
+      "expected_answer": "Under Section 38, a perpetual injunction may be granted to prevent breach of an obligation existing in the plaintiff's favour. Where the defendant invades or threatens to invade the plaintiff's property rights, the court may grant it where the defendant is a trustee for the plaintiff, where there is no standard to ascertain actual damage, where compensation in money would not afford adequate relief, or where it is necessary to prevent multiplicity of judicial proceedings.",
+      "source_hint": "Section 38, Specific Relief Act 1963",
+      "should_answer": true
+    },
+    {
+      "id": "A088",
+      "category": "A",
+      "document": "limitation_act_1963.pdf",
+      "question": "What happens if a suit, appeal, or application is filed after the period of limitation prescribed by the Limitation Act?",
+      "expected_answer": "Under Section 3, every suit instituted, appeal preferred, or application made after the prescribed period of limitation shall be dismissed, even if the opposing party has not raised limitation as a defence, subject to the extensions and exclusions provided elsewhere in the Act.",
+      "source_hint": "Section 3, Limitation Act 1963",
+      "should_answer": true
+    },
+    {
+      "id": "A089",
+      "category": "A",
+      "document": "limitation_act_1963.pdf",
+      "question": "What is the limitation period for a suit for specific performance of a contract or for compensation for breach of contract under the Limitation Act?",
+      "expected_answer": "Under the Schedule to the Limitation Act, a suit for specific performance of a contract must be filed within three years from the date fixed for performance, or if no date is fixed, from when the plaintiff has notice that performance is refused. A suit for compensation for breach of contract not otherwise specifically provided for must also be filed within three years of the breach.",
+      "source_hint": "Schedule, Part II, Articles 54-55, Limitation Act 1963",
+      "should_answer": true
+    },
+    {
+      "id": "A090",
+      "category": "A",
+      "document": "general_clauses_act_1897.pdf",
+      "question": "What does the General Clauses Act say about the effect of repealing an enactment?",
+      "expected_answer": "Under Section 6, unless a different intention appears, repealing an enactment does not revive anything not in force at the time of repeal, does not affect the previous operation of the repealed enactment or anything already done under it, does not affect rights, privileges, obligations or liabilities already acquired or incurred, does not affect penalties already incurred for offences under the repealed enactment, and does not affect any pending investigation, legal proceeding or remedy in respect of such rights or liabilities, which may continue as if the repealing Act had not been passed.",
+      "source_hint": "Section 6, General Clauses Act 1897",
+      "should_answer": true
+    },
+    {
+      "id": "A091",
+      "category": "A",
+      "document": "general_clauses_act_1897.pdf",
+      "question": "What general rule does the General Clauses Act establish regarding gender and number in legislative drafting?",
+      "expected_answer": "Under Section 13, unless the subject or context is repugnant, words importing the masculine gender in Central Acts and Regulations are taken to include females, and words in the singular include the plural, and vice versa.",
+      "source_hint": "Section 13, General Clauses Act 1897",
+      "should_answer": true
+    },
+    {
+      "id": "A092",
+      "category": "A",
+      "document": "motor_vehicles_act_1988.pdf",
+      "question": "What are the minimum age requirements for driving different classes of motor vehicles under the Motor Vehicles Act?",
+      "expected_answer": "Under Section 4, no person under 18 years may drive a motor vehicle in a public place, except that a motorcycle with engine capacity not exceeding 50cc may be driven from age 16. No person under 20 years may drive a transport vehicle.",
+      "source_hint": "Section 4, Motor Vehicles Act 1988",
+      "should_answer": true
+    },
+    {
+      "id": "A093",
+      "category": "A",
+      "document": "motor_vehicles_act_1988.pdf",
+      "question": "What does the Motor Vehicles Act require regarding possession of a driving licence?",
+      "expected_answer": "Under Section 3, no person shall drive a motor vehicle in any public place unless they hold an effective driving licence authorising them to drive that vehicle, and no person may drive a transport vehicle unless their licence specifically entitles them to do so.",
+      "source_hint": "Section 3, Motor Vehicles Act 1988",
+      "should_answer": true
+    },
+    {
+      "id": "A094",
+      "category": "A",
+      "document": "motor_vehicles_act_1988.pdf",
+      "question": "What does the Motor Vehicles Act say about compulsory insurance for motor vehicles?",
+      "expected_answer": "Under Chapter XI of the Motor Vehicles Act, no person shall use a motor vehicle in a public place, or allow it to be used, unless there is a valid third-party insurance policy in force covering the vehicle, as required under Section 146.",
+      "source_hint": "Section 146, Motor Vehicles Act 1988",
+      "should_answer": true
+    },
+    {
+      "id": "A095",
+      "category": "A",
+      "document": "negotiable_instruments_act_1881.pdf",
+      "question": "How does the Negotiable Instruments Act define a cheque?",
+      "expected_answer": "Under Section 6, a cheque is a bill of exchange drawn on a specified banker and not expressed to be payable otherwise than on demand, and includes the electronic image of a truncated cheque and a cheque in electronic form.",
+      "source_hint": "Section 6, Negotiable Instruments Act 1881",
+      "should_answer": true
+    },
+    {
+      "id": "A096",
+      "category": "A",
+      "document": "negotiable_instruments_act_1881.pdf",
+      "question": "What is the punishment for dishonour of a cheque due to insufficient funds under the Negotiable Instruments Act?",
+      "expected_answer": "Under Section 138, a person whose cheque is dishonoured due to insufficient funds commits an offence punishable with imprisonment up to two years, or a fine up to twice the cheque amount, or both, provided the cheque was presented within six months, the payee issued a demand notice within thirty days of learning of the dishonour, and the drawer failed to pay within fifteen days of receiving that notice.",
+      "source_hint": "Section 138, Negotiable Instruments Act 1881",
+      "should_answer": true
+    },
+    {
+      "id": "A097",
+      "category": "A",
+      "document": "negotiable_instruments_act_1881.pdf",
+      "question": "What presumptions does the Negotiable Instruments Act make in favour of the holder of a negotiable instrument?",
+      "expected_answer": "Under Section 118, until the contrary is proved, every negotiable instrument is presumed to have been made for consideration, to bear its true date, and to have been accepted, negotiated, and transferred within a reasonable time and before maturity. Under Section 139, in cheque dishonour cases it is presumed that the cheque was received for discharge of a debt or liability, unless the contrary is proved.",
+      "source_hint": "Sections 118 and 139, Negotiable Instruments Act 1881",
+      "should_answer": true
+    },
+    {
+      "id": "A098",
+      "category": "A",
+      "document": "it_act_2000.pdf",
+      "question": "What legal recognition does the Information Technology Act give to electronic records and electronic signatures?",
+      "expected_answer": "Under Section 4, where any law requires information to be in writing or printed form, that requirement is deemed satisfied if the information is rendered in electronic form and remains accessible for subsequent reference. Under Section 5, a similar deeming provision extends to authentication requirements satisfied through electronic signature.",
+      "source_hint": "Sections 4-5, IT Act 2000",
+      "should_answer": true
+    },
+    {
+      "id": "A099",
+      "category": "A",
+      "document": "it_act_2000.pdf",
+      "question": "What does the Information Technology Act say about punishment for identity theft and cheating by personation using a computer resource?",
+      "expected_answer": "Under Section 66C, whoever fraudulently or dishonestly makes use of the electronic signature, password, or unique identification feature of another person is punishable with imprisonment up to three years and a fine up to one lakh rupees. Under Section 66D, cheating by personation using a computer resource or communication device carries the same punishment.",
+      "source_hint": "Sections 66C-66D, IT Act 2000",
+      "should_answer": true
+    },
+    {
+      "id": "A100",
+      "category": "A",
+      "document": "it_act_2000.pdf",
+      "question": "Under what conditions is an intermediary exempt from liability for third-party content under the Information Technology Act?",
+      "expected_answer": "Under Section 79, an intermediary is not liable for third-party information hosted or made available by it, provided its function is limited to providing access and it does not initiate the transmission, select the receiver, or modify the content, and it observes due diligence and promptly removes or disables access to unlawful content upon acquiring actual knowledge or government notification.",
+      "source_hint": "Section 79, IT Act 2000",
+      "should_answer": true
+    },
+    {
+      "id": "A101",
+      "category": "A",
+      "document": "consumer_protection_act_2019.pdf",
+      "question": "What are the pecuniary jurisdiction limits of the District, State, and National Consumer Disputes Redressal Commissions under the Consumer Protection Act?",
+      "expected_answer": "Under Sections 34, 47, and 58, the District Commission has jurisdiction over complaints where consideration does not exceed one crore rupees, the State Commission over complaints exceeding one crore but not exceeding ten crore rupees, and the National Commission over complaints exceeding ten crore rupees.",
+      "source_hint": "Sections 34, 47, 58, Consumer Protection Act 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A102",
+      "category": "A",
+      "document": "consumer_protection_act_2019.pdf",
+      "question": "When is a product manufacturer liable in a product liability action under the Consumer Protection Act?",
+      "expected_answer": "Under Section 84, a product manufacturer is liable if the product contains a manufacturing defect, is defective in design, deviates from manufacturing specifications, does not conform to an express warranty, or lacks adequate instructions or warnings about proper usage. The manufacturer is liable even if it proves it was not negligent or fraudulent in making the express warranty.",
+      "source_hint": "Section 84, Consumer Protection Act 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A103",
+      "category": "A",
+      "document": "consumer_protection_act_2019.pdf",
+      "question": "What powers does the Central Consumer Protection Authority have to act against false or misleading advertisements?",
+      "expected_answer": "Under Section 21, where the Central Authority finds an advertisement false or misleading, it may direct the trader, manufacturer, endorser, advertiser or publisher to discontinue or modify it, impose a penalty up to ten lakh rupees on the manufacturer or endorser (up to fifty lakh rupees for repeat contraventions), and prohibit an endorser from making endorsements for up to one year, or three years for repeat contraventions.",
+      "source_hint": "Section 21, Consumer Protection Act 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A104",
+      "category": "A",
+      "document": "rti_act_2005.pdf",
+      "question": "What is the time limit for a public authority to respond to a request under the Right to Information Act?",
+      "expected_answer": "Under Section 7, a Public Information Officer must respond within thirty days of receiving a request, either providing the information or rejecting it with reasons. Where the information concerns the life or liberty of a person, it must be provided within forty-eight hours.",
+      "source_hint": "Section 7, RTI Act 2005",
+      "should_answer": true
+    },
+    {
+      "id": "A105",
+      "category": "A",
+      "document": "rti_act_2005.pdf",
+      "question": "What categories of information are exempt from disclosure under the Right to Information Act?",
+      "expected_answer": "Under Section 8, exemptions include information prejudicial to the sovereignty and security of India, information forbidden by a court, breach of parliamentary privilege, trade secrets and commercial confidence, information held in a fiduciary relationship, information that would endanger life or safety, information impeding investigation or prosecution, cabinet papers, and personal information.",
+      "source_hint": "Section 8, RTI Act 2005",
+      "should_answer": true
+    },
+    {
+      "id": "A106",
+      "category": "A",
+      "document": "rti_act_2005.pdf",
+      "question": "What penalties can be imposed on a Public Information Officer for non-compliance under the Right to Information Act?",
+      "expected_answer": "Under Section 20, the Information Commission may impose a penalty of two hundred and fifty rupees per day of delay, up to a maximum of twenty-five thousand rupees, on a Public Information Officer who without reasonable cause refuses a request, fails to furnish information in time, malafidely denies a request, or knowingly gives incorrect or misleading information, after giving the officer an opportunity to be heard.",
+      "source_hint": "Section 20, RTI Act 2005",
+      "should_answer": true
+    },
+    {
+      "id": "A107",
+      "category": "A",
+      "document": "dpdp_act_2023.pdf",
+      "question": "What rights does a Data Principal have under the Digital Personal Data Protection Act?",
+      "expected_answer": "Under Sections 11 to 14, a Data Principal has the right to obtain a summary of personal data being processed and the identities of parties it has been shared with, the right to correction, completion, updating and erasure of personal data, the right to readily available grievance redressal, and the right to nominate another individual to exercise her rights in the event of death or incapacity.",
+      "source_hint": "Sections 11-14, DPDP Act 2023",
+      "should_answer": true
+    },
+    {
+      "id": "A108",
+      "category": "A",
+      "document": "dpdp_act_2023.pdf",
+      "question": "What additional obligations apply to processing a child's personal data under the Digital Personal Data Protection Act?",
+      "expected_answer": "Under Section 9, a Data Fiduciary must obtain verifiable consent from the parent or lawful guardian before processing a child's personal data, must not process such data in a manner likely to cause detrimental effect on the child's well-being, and must not undertake tracking, behavioural monitoring, or targeted advertising directed at children.",
+      "source_hint": "Section 9, DPDP Act 2023",
+      "should_answer": true
+    },
+    {
+      "id": "A109",
+      "category": "A",
+      "document": "dpdp_act_2023.pdf",
+      "question": "What is the maximum monetary penalty the Data Protection Board can impose under the Digital Personal Data Protection Act?",
+      "expected_answer": "Under Section 33 and the Schedule, the highest penalty, up to two hundred and fifty crore rupees, applies to breach of the obligation to take reasonable security safeguards to prevent a personal data breach. Breach of children's data protections or breach notification obligations can attract penalties up to two hundred crore rupees, and breach of a Significant Data Fiduciary's additional obligations up to one hundred and fifty crore rupees.",
+      "source_hint": "Section 33 and Schedule, DPDP Act 2023",
+      "should_answer": true
+    },
+    {
+      "id": "A110",
+      "category": "A",
+      "document": "code_on_wages_2019.pdf",
+      "question": "What is the minimum wage for workers in India?",
+      "expected_answer": "Under the Code on Wages 2019, minimum wages are fixed by the appropriate Government under Section 5, and cannot be less than the floor wage fixed by the Central Government under Section 9, which is determined having regard to the minimum living standards of a worker and may vary by geographical area.",
+      "source_hint": "Sections 5 and 9, Code on Wages 2019",
+      "should_answer": true
+    },
+    {
+      "id": "A111",
+      "category": "A",
+      "document": "rti_act_2005.pdf",
+      "question": "What are the time limits for providing information under the Right to Information Act 2005?",
+      "expected_answer": "Under Section 7, a Public Information Officer must respond within thirty days of receiving a request, either providing the information or rejecting it with reasons. Where the information concerns the life or liberty of a person, it must be provided within forty-eight hours.",
+      "source_hint": "Section 7, RTI Act 2005",
+      "should_answer": true
+    },
+    {
+      "id": "A112",
+      "category": "A",
+      "document": "consumer_protection_act_2019.pdf",
+      "question": "What are the provisions of the Consumer Protection Act 2019 regarding filing a complaint?",
+      "expected_answer": "Under Section 35, a complaint may be filed with a District Commission by the consumer, a recognised consumer association, one or more consumers with the Commission's permission where numerous consumers share the same interest, or the Central or State Government, and may be filed electronically.",
+      "source_hint": "Section 35, Consumer Protection Act 2019",
+      "should_answer": true
+    },
+    {
       "id": "B001",
       "category": "B",
       "question": "What are the GST rates applicable to food items in India?",
@@ -564,9 +1032,9 @@
     {
       "id": "B002",
       "category": "B",
-      "question": "What is the minimum wage for workers in India?",
-      "expected_answer": "NOT APPLICABLE - out of scope. Minimum wages are governed by the Minimum Wages Act, not the documents in this corpus.",
-      "source_hint": "Minimum Wages Act - not in corpus",
+      "question": "What is the process for registering a trademark in India?",
+      "expected_answer": "NOT APPLICABLE - out of scope. Trademark registration is governed by the Trade Marks Act 1999, not the documents in this corpus.",
+      "source_hint": "Trade Marks Act 1999 - not in corpus",
       "should_answer": false
     },
     {
@@ -604,9 +1072,9 @@
     {
       "id": "B007",
       "category": "B",
-      "question": "What are the time limits for providing information under the Right to Information Act 2005?",
-      "expected_answer": "NOT APPLICABLE - out of scope. The RTI Act 2005 is not part of the corpus.",
-      "source_hint": "RTI Act 2005 - not in corpus",
+      "question": "What is the procedure for appointing an arbitrator under the Arbitration and Conciliation Act?",
+      "expected_answer": "NOT APPLICABLE - out of scope. The Arbitration and Conciliation Act 1996 is not part of the corpus.",
+      "source_hint": "Arbitration and Conciliation Act 1996 - not in corpus",
       "should_answer": false
     },
     {
@@ -620,17 +1088,17 @@
     {
       "id": "B009",
       "category": "B",
-      "question": "What are the provisions of the Consumer Protection Act 2019 regarding filing a complaint?",
-      "expected_answer": "NOT APPLICABLE - out of scope. The Consumer Protection Act 2019 is not part of the corpus.",
-      "source_hint": "Consumer Protection Act 2019 - not in corpus",
+      "question": "What are the requirements for acquiring Indian citizenship by naturalisation?",
+      "expected_answer": "NOT APPLICABLE - out of scope. Citizenship requirements are governed by the Citizenship Act 1955, not the documents in this corpus.",
+      "source_hint": "Citizenship Act 1955 - not in corpus",
       "should_answer": false
     },
     {
       "id": "B010",
       "category": "B",
-      "question": "What are the provisions of the Factories Act 1948 regarding working hours?",
-      "expected_answer": "NOT APPLICABLE - out of scope. The Factories Act 1948 is not part of the corpus.",
-      "source_hint": "Factories Act 1948 - not in corpus",
+      "question": "What are the penalties for causing environmental pollution under the Environment Protection Act?",
+      "expected_answer": "NOT APPLICABLE - out of scope. The Environment Protection Act 1986 is not part of the corpus.",
+      "source_hint": "Environment Protection Act 1986 - not in corpus",
       "should_answer": false
     }
   ]

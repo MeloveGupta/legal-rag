@@ -231,7 +231,7 @@ def run_evaluation() -> EvalReport:
                 answer_preview="",
                 sources_used=0,
                 passed=False,
-                failure_reason="All retries failed — transient error",
+                failure_reason="All retries failed - transient error",
                 latency_ms=elapsed_ms,
             )
         else:
@@ -444,7 +444,7 @@ def save_report(report: EvalReport) -> Path:
 
 def main():
     logger.info("=" * 60)
-    logger.info("Legal RAG — Evaluation Suite")
+    logger.info("Legal RAG - Evaluation Suite")
     logger.info("=" * 60)
 
     report      = run_evaluation()
