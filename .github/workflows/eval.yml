@@ -42,9 +42,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: chroma_db
-          key: ${{ runner.os }}-chroma-${{ hashFiles('data/raw/**') }}
+          # v2: cache key now also depends on ingestion code, not just the
+          # source PDFs. Chunking logic changes (chunker.py, loader.py)
+          # don't touch data/raw/**, so a hash based on PDFs alone can't
+          # detect them — leaving a stale, wrong ChromaDB looking valid.
+          # Bump "v2" manually any time ingestion logic changes in a way
+          # this hash might not fully capture.
+          key: ${{ runner.os }}-chroma-v2-${{ hashFiles('data/raw/**', 'src/legal_rag/ingestion/**') }}
           restore-keys: |
-            ${{ runner.os }}-chroma-
+            ${{ runner.os }}-chroma-v2-
 
       - name: Ingest documents if ChromaDB is empty
         env:
