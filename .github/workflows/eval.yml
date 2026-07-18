@@ -61,7 +61,7 @@ jobs:
               from src.legal_rag.retrieval.vector_store import add_documents
               import os, pathlib
               raw_dir = pathlib.Path('data/raw')
-              for pdf in raw_dir.glob('*.pdf'):
+              for pdf in raw_dir.rglob('*.pdf'):
                   docs = load_documents(pdf)
                   chunks = chunk_documents(docs)
                   add_documents(chunks)
