@@ -112,7 +112,7 @@ function AIBubble({ msg }: { msg: AIMessage }) {
     <div className="flex gap-3">
       {/* Avatar */}
       <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-gold/15 font-serif text-xs italic text-gold">
-        N
+        P
       </span>
 
       <div className="min-w-0 flex-1">

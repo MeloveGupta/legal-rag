@@ -53,11 +53,11 @@ export function SiteFooter() {
             <a href="#top" className="flex items-center gap-2.5">
               <span className="size-2 rounded-full bg-gold" />
               <span className="font-serif text-xl tracking-tight text-foreground">
-                Nyaya
+                Pramaan
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              AI legal intelligence for India — grounded, cited, and always
+              AI legal intelligence for India - grounded, cited, and always
               learning.
             </p>
           </div>
@@ -83,8 +83,8 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-border pt-8 text-xs text-muted-foreground/60 sm:flex-row">
-          <span>© {new Date().getFullYear()} Nyaya Intelligence.</span>
-          <span>Informational only — not a substitute for legal advice.</span>
+          <span>© {new Date().getFullYear()} Pramaan.</span>
+          <span>Informational only - not a substitute for legal advice.</span>
         </div>
       </div>
     </footer>
